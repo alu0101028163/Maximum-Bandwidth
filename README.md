@@ -42,3 +42,10 @@ for (auto vertex : GRAPH) {
 ```
 
 *DISCLAIMER: actual implementation may vary the data structures utilized in provided examples.
+
+
+--------------------------------
+## GRASP RCL criteria
+
+For the GRASP construction algorithm, a simple __cardinality criteria__ can be followed, applying the __AB(v_i)__ function to the total
+of label candidates and choosing labeling at random between the first __k__ candidates.
