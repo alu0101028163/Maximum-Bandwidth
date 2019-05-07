@@ -46,7 +46,15 @@ void Matrix::file_to_matrix(std::string filePath){
   infile.close();
 }
 
-
+void Matrix::print(){
+  for (int i = 0; i < nRows;i++){
+    std::cout << "( ";
+    for (int j = 0; j < nCols; j++){
+      std::cout << matrix[i][j] << " ";
+    }
+    std::cout << ")\n";
+  }
+}
 
 void Matrix::set(int posX, int posY, int value){
 

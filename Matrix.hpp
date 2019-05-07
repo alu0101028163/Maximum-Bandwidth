@@ -98,6 +98,11 @@ public:
       return nRows;
     }
 
+    /*
+    * The content of the matrix is printed.
+    */
+    void print();
+
     int get(int posX, int posY) const;
     int getCols() const;
     int getRows() const;
