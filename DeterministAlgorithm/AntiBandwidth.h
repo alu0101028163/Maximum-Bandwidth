@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "../GRAPH/GraphGenerator/Graph.h"
 #include <algorithm>
 #include <limits>
 
