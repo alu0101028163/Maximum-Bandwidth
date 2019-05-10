@@ -5,8 +5,6 @@
 #include "../GRAPH/GraphGenerator/GraphGenerator.h"
 
 
-
-
 TEST_CASE("Objective Function is begin correctly performed"){
 
   std::vector< std::vector<short int> > graph = ABM::fileToGraph("inst1.txt");

@@ -6,7 +6,7 @@
 int main(){
 
   std::vector< std::vector<short int> > graph = ABM::fileToGraph("inst1.txt");
-  // std::vector <std::vector<int> > permutations = DeterministAlgorithm::generateLabels(10);
+  std::vector <std::vector<int> > permutations = DeterministAlgorithm::generateLabels(3);
   std::vector<int> label2;
   label2.push_back(1);
   label2.push_back(4);
@@ -24,12 +24,12 @@ int main(){
   //   std::cout << "\n";
   // }
   //
-  // for (int i = 0; i < 1; i++){
-  //   for(int j = 0; j < permutations[i].size(); j++){
-  //     std::cout << permutations[i][j];
-  //   }
-  //   std::cout << "\n";
-  // }
+  for (int i = 0; i < permutations.size(); i++){
+    for(int j = 0; j < permutations[i].size(); j++){
+      std::cout << permutations[i][j];
+    }
+    std::cout << "\n";
+  }
 
 
 }
