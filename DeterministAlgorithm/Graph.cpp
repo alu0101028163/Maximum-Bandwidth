@@ -20,9 +20,22 @@ Graph::Graph(const std::string & instance){
   infile.close();
 }
 
+Graph::~Graph(){}
+
+
 void Graph::printGraph(){
-  ABM::traceGeneratedMatrix(adjacencyMatrix_);
+  for (int i = 0; i < adjacencyMatrix_.size(); i++) {
+    for (int j = 0; j < adjacencyMatrix_[i].size(); j++) {
+      std::cout << adjacencyMatrix_[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
 }
 
-Graph::~Graph(){
+int Graph::getSize(){
+  return adjacencyMatrix_.size();
+}
+
+std::vector<short int>& Graph::operator[] (int x){
+  return adjacencyMatrix_[x];
 }

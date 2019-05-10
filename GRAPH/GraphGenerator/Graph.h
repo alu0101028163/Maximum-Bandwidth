@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GraphGenerator.h"
 #include <iostream>
 #include <vector>
 #include <random>
@@ -10,7 +11,7 @@
 class Graph {
 private:
 	std::vector<std::vector<short int> > adjacencyMatrix_;
-	
+
 	//TODO: Caracterization of labelling as:
 	//	1. vector<int>
 	//  2. set<int>
@@ -18,15 +19,17 @@ private:
 
 public:
 
-	/// <summary> 
+	/// <summary>
 	///		Build graph from an instance in a file
 	/// </summary>
-	/// <param name ="instance"> File path to be read from </param> 
+	/// <param name ="instance"> File path to be read from </param>
 	Graph(const std::string& instance);
-	
-	/// <summary> 
+
+	/// <summary>
 	///		Default destructor
 	/// </summary>
 	~Graph();
 
+
+	void printGraph();
 };
