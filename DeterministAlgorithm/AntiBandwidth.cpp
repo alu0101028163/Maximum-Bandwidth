@@ -2,21 +2,21 @@
 
 namespace AntiBandwith{
 
-  int objectiveFunction(Graph graph, std::vector<int> label){
+  int objectiveFunction( std::vector< std::vector<short int> > graph, std::vector<int> label){
 
     int min = std::numeric_limits<int>::max();
 
     int result = 0;
 
-    for (int i = 0; i < graph.getSize(); i++){
-      for (int j = i + 1; j < graph[i].size(); i++){
-        if(result = (graph[i][i] * label[i] - graph[i][j]) < min)
-           min = result;
+    for (int i = 0; i < graph.size(); i++){
+      for (int j = 0; j < graph[i].size(); j++){
+        if(graph[i][j] == 1)
+          if((result = abs(label[i] - label[j])) < min)
+              min = result;
       }
     }
 
     return min;
 
   }
-
 }
