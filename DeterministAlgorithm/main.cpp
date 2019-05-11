@@ -1,6 +1,6 @@
-#include "../GRAPH/GraphGenerator/GraphGenerator.h"
+#include "../GraphGenerator/GraphGenerator.h"
 #include "DeterministAlgorithm.h"
-#include "AntiBandwidth.h"
+#include "../Antibandwidth/AntiBandwidth.h"
 #include <iostream>
 
 int main(){

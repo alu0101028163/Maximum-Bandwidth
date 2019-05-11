@@ -2,7 +2,7 @@
 #include <vector>
 #include "catch.hpp"
 #include "DeterministAlgorithm.h"
-#include "../GRAPH/GraphGenerator/GraphGenerator.h"
+#include "../GraphGenerator/GraphGenerator.h"
 
 
 TEST_CASE("Label generator is begin correctly performed"){
@@ -69,7 +69,7 @@ TEST_CASE("Label generator is begin correctly performed"){
 TEST_CASE("Determinist Algorithm is performing correctly"){
 
 
-  std::vector< std::vector<short int> > graph = ABM::fileToGraph("inst1.txt");
+  std::vector< std::vector<short int> > graph = ABM::denseFileToGraph("inst1.txt");
 
   std::vector<int> label1;
   label1.push_back(2);

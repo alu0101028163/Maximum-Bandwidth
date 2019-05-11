@@ -2,7 +2,7 @@
 #include <vector>
 #include <iterator>
 #include <limits>
-#include "AntiBandwidth.h"
+#include "../AntiBandwidth/AntiBandwidth.h"
 
 namespace DeterministAlgorithm{
   /**

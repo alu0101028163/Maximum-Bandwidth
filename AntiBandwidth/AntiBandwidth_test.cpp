@@ -2,12 +2,12 @@
 #include <vector>
 #include "catch.hpp"
 #include "AntiBandwidth.h"
-#include "../GRAPH/GraphGenerator/GraphGenerator.h"
+#include "../GraphGenerator/GraphGenerator.h"
 
 
 TEST_CASE("Objective Function is begin correctly performed"){
 
-  std::vector< std::vector<short int> > graph = ABM::fileToGraph("inst1.txt");
+  std::vector< std::vector<short int> > graph = ABM::denseFileToGraph("inst1.txt");
 
   std::vector<int> label1;
   label1.push_back(2);
@@ -23,7 +23,7 @@ TEST_CASE("Objective Function is begin correctly performed"){
   label2.push_back(5);
   label2.push_back(8);
   label2.push_back(3);
-  REQUIRE(AntiBandwith::objectiveFunction(graph, label2) == 3);
+  REQUIRE(AntiBandwith::objectiveFunction(graph, label2) == 2);
 
   std::vector<int> label3;
   label3.push_back(0);
