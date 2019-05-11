@@ -23,4 +23,24 @@ namespace DeterministAlgorithm{
 
     return labels;
   }
+
+  std::vector<int> deterministAlgorithm(std::vector<std::vector<short int> > graph, std::vector<std::vector <int> > labels){
+
+
+    int max = std::numeric_limits<int>::min();
+    std::vector<int> bestLabel;
+
+    int result = 0;
+
+    for (int i = 0; i < labels.size(); i++){
+      if((result = AntiBandwith::objectiveFunction(graph, labels[i])) > max){
+          max = result;
+          bestLabel = labels[i];
+      }
+    }
+
+    return bestLabel;
+
+  }
+
 }

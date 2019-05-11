@@ -2,6 +2,7 @@
 #include <vector>
 #include "catch.hpp"
 #include "DeterministAlgorithm.h"
+#include "../GRAPH/GraphGenerator/GraphGenerator.h"
 
 
 TEST_CASE("Label generator is begin correctly performed"){
@@ -61,6 +62,52 @@ TEST_CASE("Label generator is begin correctly performed"){
 
   REQUIRE(isContained == true);
   REQUIRE(labels_.size() == labels.size());
+
+
+}
+
+TEST_CASE("Determinist Algorithm is performing correctly"){
+
+
+  std::vector< std::vector<short int> > graph = ABM::fileToGraph("inst1.txt");
+
+  std::vector<int> label1;
+  label1.push_back(2);
+  label1.push_back(3);
+  label1.push_back(1);
+  label1.push_back(5);
+  label1.push_back(4);
+
+  std::vector<int> label2;
+  label2.push_back(1);
+  label2.push_back(4);
+  label2.push_back(5);
+  label2.push_back(8);
+  label2.push_back(3);
+
+  std::vector<int> label3;
+  label3.push_back(0);
+  label3.push_back(0);
+  label3.push_back(0);
+  label3.push_back(0);
+  label3.push_back(0);
+
+  std::vector< std::vector<int> > labels1;
+
+  labels1.push_back(label1);
+  labels1.push_back(label2);
+  labels1.push_back(label3);
+
+
+  std::vector< std::vector<int> > labels2;
+
+  labels2.push_back(label1);
+  labels2.push_back(label3);
+
+  REQUIRE(DeterministAlgorithm::deterministAlgorithm(graph, labels1) == label2);
+  REQUIRE(DeterministAlgorithm::deterministAlgorithm(graph, labels2) == label1);
+
+
 
 
 }
