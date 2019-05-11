@@ -5,31 +5,24 @@
 
 int main(){
 
-  std::vector< std::vector<short int> > graph = ABM::disperseFileToGraph("../Literature_Instances/Grid_Graphs/mesh10_10.txt");
-  // std::vector <std::vector<int> > permutations = DeterministAlgorithm::generateLabels(3);
-  // std::vector<int> label2;
-  // label2.push_back(1);
-  // label2.push_back(4);
-  // label2.push_back(5);
-  // label2.push_back(8);
-  // label2.push_back(3);
-  // int value = AntiBandwith::objectiveFunction(graph, label2);
-  // std::cout << value << "\n";
+  // std::vector< std::vector<short int> > graph = ABM::disperseFileToGraph("../Literature_Instances/caterpillars/caterpillars/caterpillar_5_4.txt");
+  std::vector< std::vector<short int> > graph = ABM::denseFileToGraph("./inst1.txt");
+  std::vector <std::vector<int> > labels = DeterministAlgorithm::generateLabels(graph.size());
+  std::vector <int> solution = DeterministAlgorithm::deterministAlgorithm(graph, labels);
 
-
-  for (int i = 0; i < graph.size(); i++){
-    for(int j = 0; j < graph[i].size(); j++){
-      std::cout << graph[i][j];
-    }
-    std::cout << "\n";
+  for(int i = 0; i < solution.size(); i++){
+    std::cout << solution[i] << " ";
   }
+    std::cout << "\n";
 
-  // for (int i = 0; i < permutations.size(); i++){
-  //   for(int j = 0; j < permutations[i].size(); j++){
-  //     std::cout << permutations[i][j];
+  //
+  // for (int i = 0; i < graph.size(); i++){
+  //   for(int j = 0; j < graph[i].size(); j++){
+  //     std::cout << graph[i][j];
   //   }
   //   std::cout << "\n";
   // }
+
 
 
 }

@@ -6,32 +6,6 @@
 using namespace std;
 using namespace ABM;
 
-int main(int argc, char* argv[]) {
-	int n;
-	int factor;
-	
-	// PARAM INPUT
-	std::cout << "Number of vertices (n): ";
-	while (!(std::cin >> n)) {
-		std::cout << "Incorrect value, please try again: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}; 
-	getchar();
-	
-	std::cout << "Vecinity factor (%): ";
-	while (!(std::cin >> factor)) {
-		std::cout << "Incorrect value, please try again: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	};
-
-	graphGenerator(n, factor, "inst1.txt");
-
-	system("PAUSE");
-	return 0;
-}
-
 void ABM::graphGenerator(int n, int factor, const std::string & filePath) {
 
 	try {
@@ -81,7 +55,7 @@ void ABM::traceGeneratedMatrix(const std::vector<std::vector<short int>>& matrix
 }
 
 void ABM::generateGraphFile(const std::vector<std::vector<short int> >& matrix, const std::string& filePath) {
-	
+
 	if (matrix.size() < 1 || matrix[0].size() < 1) {
 		throw std::length_error("Generated instance must have at least 1 vertex");
 	}
@@ -105,4 +79,51 @@ void ABM::generateGraphFile(const std::vector<std::vector<short int> >& matrix, 
 	}
 
 	file.close();
+}
+
+std::vector<std::vector<short int> > ABM::denseFileToGraph(std::string fileName){
+	std::vector < std::vector <short int > > adjacencyMatrix_;
+	std::ifstream infile(fileName);
+
+	int nVertexs;
+	infile >> nVertexs;
+
+	int value;
+	short int temp;
+
+	for(int i = 0; i < nVertexs; i++){
+		adjacencyMatrix_.push_back(std::vector<short int>());
+		for (int j = 0; j < nVertexs; j++){
+			infile >> temp;
+			adjacencyMatrix_[i].push_back(temp);
+		}
+	}
+
+	infile.close();
+	return adjacencyMatrix_;
+}
+
+std::vector<std::vector<short int> > ABM::disperseFileToGraph(std::string fileName){
+	std::vector < std::vector <short int > > adjacencyMatrix_;
+	std::ifstream infile(fileName);
+	int nCols, nRows, nArcs;
+	infile >> nCols >> nRows >> nArcs;
+
+	assert(nCols == nRows);
+
+	// Matrix initialization:
+ 	for(int i = 0; i < nRows; i++){
+			adjacencyMatrix_.push_back(std::vector<short int>(nCols));
+	}
+
+	// While end of file is not reached fill matrix with
+	// connections between adjacent vertices.
+	while(!infile.eof()){
+			int node, neighbour;
+			infile >> node >> neighbour;
+			adjacencyMatrix_[node - 1][neighbour - 1] = 1;
+	}
+
+	infile.close();
+	return adjacencyMatrix_;
 }

@@ -1,11 +1,16 @@
 ﻿// GraphGenerator.h: include std files / project specific files.
 #pragma once
 
+#include <random>
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cassert>
+#include <vector>
 
-#include "Graph.h"
+// Not using currently.
+// #include "Graph.h"
 
 namespace ABM {
 	/**
@@ -45,4 +50,11 @@ namespace ABM {
 	*/
 	void generateGraphFile(const std::vector<std::vector<short int> >&, const std::string&);
 
+
+	/**
+	 * Creates a Graph instance from an input file.
+	 * @param fileName
+	 */
+	std::vector<std::vector<short int> > denseFileToGraph(std::string fileName);
+	std::vector<std::vector<short int> > disperseFileToGraph(std::string fileName);
 }

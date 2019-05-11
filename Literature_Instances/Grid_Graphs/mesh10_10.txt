@@ -1,4 +1,3 @@
-Problem name: mesh10x10.txt 	 Optimal solution = 45
 100 100 400
 1 2
 1 11
@@ -180,4 +179,3 @@ Problem name: mesh10x10.txt 	 Optimal solution = 45
 97 98
 98 99
 99 100
-

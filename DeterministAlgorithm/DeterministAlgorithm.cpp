@@ -45,6 +45,7 @@ namespace DeterministAlgorithm{
       }
     }
 
+    std::cout << max << "\n";
     return bestLabel;
 
   }
