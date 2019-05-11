@@ -4,7 +4,7 @@
 #include <cmath>
 
 
-namespace AntiBandwith {
+namespace AntiBandwidth {
 
   /**
    * It's the objective function of the AntiBandwith maximization problem which seeks
