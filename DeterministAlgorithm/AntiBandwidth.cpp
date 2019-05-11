@@ -8,8 +8,10 @@ namespace AntiBandwith{
 
     int result = 0;
 
+    // For every node in the graph
     for (int i = 0; i < graph.size(); i++){
-      for (int j = 0; j < graph[i].size(); j++){
+      // For every neighbour in the graph
+      for (int j = i + 1; j < graph[i].size(); j++){
         if(graph[i][j] == 1)
           if((result = abs(label[i] - label[j])) < min)
               min = result;
@@ -19,5 +21,5 @@ namespace AntiBandwith{
     return min;
 
   }
-  
+
 }
