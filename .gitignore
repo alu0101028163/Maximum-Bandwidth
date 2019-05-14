@@ -1,3 +1,24 @@
 *.gch
 *.o
 instances
+
+# vs generated files
+VNS/.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# built by visual studio
+*.vspscc
+*.obj
+*.meta
+*.pch
+*.tlb
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+*.svclog
+*.scc
