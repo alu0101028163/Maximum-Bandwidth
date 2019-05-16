@@ -3,8 +3,8 @@
 #include "../../GraphGenerator/GraphGenerator.h"
 #include "../../AntiBandwidth/AntiBandwidth.h"			// objectiveFunction and 
 
-// Unify ABM and AntiBandwidth namespaces. Serving the same purpose
-namespace ABM {
+// Unify GraphGen and AntiBandwidth namespaces. Serving the same purpose
+namespace GraphGen {
 
 	//TODO: It would be amazing if this functions could be turned to functors, for once
 
