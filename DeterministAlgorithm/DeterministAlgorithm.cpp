@@ -39,7 +39,7 @@ namespace DeterministAlgorithm{
     for (int i = 0; i < labels.size(); i++){
       // It that label objective function value is bigger than the current maximum
       // then that label is the best label currently visited.
-      if((result = AntiBandwith::objectiveFunction(graph, labels[i])) > max){
+      if((result = AntiBandwidth::objectiveFunction(graph, labels[i])) > max){
           max = result;
           bestLabel = labels[i];
       }
