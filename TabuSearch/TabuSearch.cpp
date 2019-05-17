@@ -31,17 +31,19 @@ namespace TabuSearch{
     int bestLocalI = -1;
     int bestLocalJ = -1;
     int bestLocalValue = -9999;
+    int bestLocalFrequency = 99999;
 
     for(int i = 0; i < graph.size(); i++){
       for(int j = i + 1 ; j < graph[i].size(); j++){
         int actualLocalValue;
-        if((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) > bestLocalValue){
+        if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) > bestLocalValue) && (recencyFrequencyMatrix[i][j] <= bestLocalFrequency)){
 
-            if((!isTabu(recencyFrequencyMatrix,i,j)) || (actualLocalValue > bestValue) ){
+            if((!isTabu(recencyFrequencyMatrix,i,j)) || (actualLocalValue > bestValue)){
                  std::cout << "ACTUAL LOCAL VALUE: " << actualLocalValue << "\n";
                  bestLocalValue = actualLocalValue;
                  bestLocalI = i;
                  bestLocalJ = j;
+                 bestLocalFrequency = recencyFrequencyMatrix[i][j];
              }
            }
       }
