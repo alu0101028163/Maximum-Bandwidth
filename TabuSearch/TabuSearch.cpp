@@ -62,7 +62,7 @@ namespace TabuSearch{
 
 
 
-  void updateRecFreqMatrix(std::vector<std::vector<int> > recencyFrequencyMatrix){
+  void updateRecFreqMatrix(std::vector<std::vector<int> >& recencyFrequencyMatrix){
     for(int i = 0; i < recencyFrequencyMatrix.size(); i++){
       for(int j = 0; j < recencyFrequencyMatrix.size(); j++){
         if(isTabu(recencyFrequencyMatrix, i, j)){
@@ -76,7 +76,7 @@ namespace TabuSearch{
     return (recencyFrequencyMatrix[i][j] > 0);
   }
 
-  void addTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int period, int i, int j){
+  void addTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int period, int i, int j){
     recencyFrequencyMatrix[i][j] = period; // Add tabu
     recencyFrequencyMatrix[j][i] += 1;     // Increment frequency
   }

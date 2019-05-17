@@ -12,15 +12,15 @@ namespace TabuSearch{
   std::vector<int> move(int edge1, int edge2, std::vector<int> actualSolution);
 
   bool isTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int i, int j);
-  void updateRecFreqMatrix(std::vector<std::vector<int> > recencyFrequencyMatrix);
-  void addTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int period, int i, int j);
+  void updateRecFreqMatrix(std::vector<std::vector<int> >& recencyFrequencyMatrix);
+  void addTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int period, int i, int j);
 
   std::vector<int> generateRandomSolution(int numberOfVertexs);
 
   /**
    * Changes the label i position value for the j position value and viceversa.
    * @param i
-   * @param j     
+   * @param j
    * @param label
    */
   void swap(int i, int j , std::vector<int>& label);
