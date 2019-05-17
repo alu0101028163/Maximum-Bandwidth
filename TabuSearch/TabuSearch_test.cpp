@@ -3,8 +3,7 @@
 #include "catch.hpp"
 #include "TabuSearch.h"
 #include "../GraphGenerator/GraphGenerator.h"
-#include "../GraphGenerator/Matrix_generator.hpp"
-
+#include "../MatrixGenerator/Matrix_generator.hpp"
 
 
 TEST_CASE("Data structure initializer works properly"){
@@ -67,7 +66,7 @@ TEST_CASE("Update best Solution works properly"){
 
 TEST_CASE("Is tabu works properly"){
 
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 1) == true);
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 2) == false);
 
@@ -77,7 +76,7 @@ TEST_CASE("Is tabu works properly"){
 TEST_CASE("Add tabu works properly"){
 
 
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
 
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 2) == false);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 2);
@@ -93,7 +92,7 @@ TEST_CASE("Add tabu works properly"){
 }
 
 TEST_CASE("Update recency-frequency matrix works properly"){
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 1);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 2);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 3);

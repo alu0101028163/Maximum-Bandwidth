@@ -1,6 +1,4 @@
 #include "TabuSearch.h"
-#include "../GraphGenerator/GraphGenerator.h"
-#include "../GraphGenerator/Matrix_generator.hpp"
 
 int main(){
 

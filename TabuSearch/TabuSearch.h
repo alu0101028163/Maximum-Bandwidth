@@ -1,5 +1,8 @@
+#pragma once
 #include <vector>
 #include "../AntiBandwidth/AntiBandwidth.h"
+#include "../MatrixGenerator/Matrix_generator.hpp"
+
 namespace TabuSearch{
 
   void tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph);

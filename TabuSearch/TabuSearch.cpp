@@ -17,6 +17,9 @@ namespace TabuSearch{
     // recency of movements in the superior diagonal.
     std::vector<std::vector<int> > recencyFrequencyMatrix = TabuSearch::initializeDataStructure(graph.size());
 
+    for(int i = 0; i < 3; i++){
+
+    MatrixGenerator::print_matrix(recencyFrequencyMatrix,graph.size(), graph.size());
 
     // -------------------------------------------------------------------------
     //                            LOCAL SEARCH
@@ -57,6 +60,7 @@ namespace TabuSearch{
     // And now we set the actual movement as tabu movement
     addTabu(recencyFrequencyMatrix, 3, bestLocalI, bestLocalJ);
 
+  }
 
   }
 
