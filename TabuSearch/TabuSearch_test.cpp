@@ -109,6 +109,7 @@ TEST_CASE("Update recency-frequency matrix works properly"){
     TabuSearch::updateRecFreqMatrix(recencyFrequencyMatrix);
   }
 
+  TabuSearch::updateRecFreqMatrix(recencyFrequencyMatrix);
   for(int i = 0; i < 3; i++){
     REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, i + 1) == false);
     REQUIRE(recencyFrequencyMatrix[0][i + 1] == 0);

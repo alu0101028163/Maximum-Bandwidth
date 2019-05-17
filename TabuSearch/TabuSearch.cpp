@@ -114,13 +114,6 @@ namespace TabuSearch{
     return AntiBandwidth::objectiveFunction(graph,label);
   }
 
-  // std::vector<int> move(int edge1, int edge2, std::vector<int> actualSolution){
-  //   int temp = actualSolution[edge1];
-  //   actualSolution[edge1] = actualSolution[edge2];
-  //   actualSolution[edge2] = temp;
-  //   return actualSolution;
-  // }
-
   std::vector<std::vector<int> > initializeDataStructure(int dimension){
     std::vector<std::vector<int> > dataStructure;
     for (int i = 0; i < dimension; i++){
