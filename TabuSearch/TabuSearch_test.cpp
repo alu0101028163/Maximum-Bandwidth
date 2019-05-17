@@ -134,3 +134,19 @@ TEST_CASE("Evaluate movement works properly"){
   REQUIRE(movementValue == 2);
 
 }
+
+
+TEST_CASE("Tabu search works properly"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,3000,19);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) == 19);
+
+}

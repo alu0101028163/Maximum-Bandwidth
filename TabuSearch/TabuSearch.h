@@ -6,7 +6,7 @@
 
 namespace TabuSearch{
 
-  void tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph);
+  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue);
 
   /**
    * Initializes empty 2D-vector with dimensions equal to : dimension x dimension.
