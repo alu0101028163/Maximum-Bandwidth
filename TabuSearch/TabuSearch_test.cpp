@@ -115,3 +115,22 @@ TEST_CASE("Update recency-frequency matrix works properly"){
   }
 
 }
+
+TEST_CASE("Evaluate movement works properly"){
+
+
+  std::vector<std::vector<short int> > graph = ABM::denseFileToGraph("./inst1.txt");
+  static const int arr[] = {2,4,6,5,8};
+  std::vector<int> label(arr, arr + sizeof(arr) / sizeof(arr[0]) );
+
+  REQUIRE(AntiBandwidth::objectiveFunction(graph,label) == 1);
+
+  int movementValue = TabuSearch::evaluateMovement(2,3,label,graph);
+  REQUIRE(label[0] == 2);
+  REQUIRE(label[1] == 4);
+  REQUIRE(label[2] == 6);
+  REQUIRE(label[3] == 5);
+  REQUIRE(label[4] == 8);
+  REQUIRE(movementValue == 2);
+
+}
