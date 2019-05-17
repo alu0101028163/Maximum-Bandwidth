@@ -119,7 +119,7 @@ TEST_CASE("Update recency-frequency matrix works properly"){
 TEST_CASE("Evaluate movement works properly"){
 
 
-  std::vector<std::vector<short int> > graph = ABM::denseFileToGraph("./inst1.txt");
+  std::vector<std::vector<short int> > graph = GraphGen::denseFileToGraph("./inst1.txt");
   static const int arr[] = {2,4,6,5,8};
   std::vector<int> label(arr, arr + sizeof(arr) / sizeof(arr[0]) );
 

@@ -20,7 +20,7 @@ namespace TabuSearch{
     for(int i = 0; i < 3; i++){
 
     MatrixGenerator::print_matrix(recencyFrequencyMatrix,graph.size(), graph.size());
-
+    std::cout << "\n";
     // -------------------------------------------------------------------------
     //                            LOCAL SEARCH
     // -------------------------------------------------------------------------
@@ -68,7 +68,7 @@ namespace TabuSearch{
 
   void updateRecFreqMatrix(std::vector<std::vector<int> >& recencyFrequencyMatrix){
     for(int i = 0; i < recencyFrequencyMatrix.size(); i++){
-      for(int j = 0; j < recencyFrequencyMatrix.size(); j++){
+      for(int j = i + 1; j < recencyFrequencyMatrix.size(); j++){
         if(isTabu(recencyFrequencyMatrix, i, j)){
            recencyFrequencyMatrix[i][j] -= 1; // We decrement tabu time.
         }

@@ -2,6 +2,7 @@
 #include <vector>
 #include "../AntiBandwidth/AntiBandwidth.h"
 #include "../MatrixGenerator/Matrix_generator.hpp"
+#include "../GraphGenerator/GraphGenerator.h"
 
 namespace TabuSearch{
 
