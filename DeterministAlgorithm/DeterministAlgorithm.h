@@ -13,7 +13,7 @@ namespace DeterministAlgorithm{
   std::vector <std::vector<int> > generateLabels(int numberOfVertexs);
 
   /**
-   * It finds the maximum value of the AntiBandwith objective function and returns
+   * It finds the maximum value of the AntiBandwidth objective function and returns
    * the label that retrieves that value.
    * @param  graph
    * @param  labels

@@ -11,7 +11,7 @@
 // Not using currently.
 // #include "Graph.h"
 
-namespace ABM {
+namespace GraphGen {
 	/**
 	 Generates a mildly controlled non-weigthed, non-directed graph of a specified size (number of vertices).
 	 Generated graph will be in specified path SYNCHRONOUSLY. It is not advised to make asynchronous calls to this

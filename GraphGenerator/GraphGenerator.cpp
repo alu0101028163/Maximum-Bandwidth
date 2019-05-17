@@ -4,9 +4,9 @@
 #include "GraphGenerator.h"
 
 using namespace std;
-using namespace ABM;
+using namespace GraphGen;
 
-void ABM::graphGenerator(int n, int factor, const std::string & filePath) {
+void GraphGen::graphGenerator(int n, int factor, const std::string & filePath) {
 
 	try {
 		std::cout << "Generating graph Instance . . ." << std::endl;
@@ -22,7 +22,7 @@ void ABM::graphGenerator(int n, int factor, const std::string & filePath) {
 	}
 }
 
-std::vector<std::vector<short int>> ABM::generateGraphInstance(int n, int factor) {
+std::vector<std::vector<short int>> GraphGen::generateGraphInstance(int n, int factor) {
 
 	random_device rd;
 	mt19937 generator(rd());
@@ -44,7 +44,7 @@ std::vector<std::vector<short int>> ABM::generateGraphInstance(int n, int factor
 	return instance;
 }
 
-void ABM::traceGeneratedMatrix(const std::vector<std::vector<short int>>& matrix) noexcept {
+void GraphGen::traceGeneratedMatrix(const std::vector<std::vector<short int>>& matrix) noexcept {
 
 	for (int i = 0; i < matrix.size(); i++) {
 		for (int j = 0; j < matrix[i].size(); j++) {
@@ -54,7 +54,7 @@ void ABM::traceGeneratedMatrix(const std::vector<std::vector<short int>>& matrix
 	}
 }
 
-void ABM::generateGraphFile(const std::vector<std::vector<short int> >& matrix, const std::string& filePath) {
+void GraphGen::generateGraphFile(const std::vector<std::vector<short int> >& matrix, const std::string& filePath) {
 
 	if (matrix.size() < 1 || matrix[0].size() < 1) {
 		throw std::length_error("Generated instance must have at least 1 vertex");
@@ -81,7 +81,7 @@ void ABM::generateGraphFile(const std::vector<std::vector<short int> >& matrix, 
 	file.close();
 }
 
-std::vector<std::vector<short int> > ABM::denseFileToGraph(std::string fileName){
+std::vector<std::vector<short int> > GraphGen::denseFileToGraph(std::string fileName){
 	std::vector < std::vector <short int > > adjacencyMatrix_;
 	std::ifstream infile(fileName);
 
@@ -103,7 +103,7 @@ std::vector<std::vector<short int> > ABM::denseFileToGraph(std::string fileName)
 	return adjacencyMatrix_;
 }
 
-std::vector<std::vector<short int> > ABM::disperseFileToGraph(std::string fileName){
+std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(std::string fileName){
 	std::vector < std::vector <short int > > adjacencyMatrix_;
 	std::ifstream infile(fileName);
 	int nCols, nRows, nArcs;

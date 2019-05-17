@@ -5,8 +5,8 @@
 
 int main(){
 
-  // std::vector< std::vector<short int> > graph = ABM::disperseFileToGraph("../Literature_Instances/caterpillars/caterpillars/caterpillar_5_4.txt");
-  std::vector< std::vector<short int> > graph = ABM::denseFileToGraph("./inst1.txt");
+  // std::vector< std::vector<short int> > graph = GraphGen::disperseFileToGraph("../Literature_Instances/caterpillars/caterpillars/caterpillar_5_4.txt");
+  std::vector< std::vector<short int> > graph = GraphGen::denseFileToGraph("./inst1.txt");
   std::vector <std::vector<int> > labels = DeterministAlgorithm::generateLabels(graph.size());
   std::vector <int> solution = DeterministAlgorithm::deterministAlgorithm(graph, labels);
 

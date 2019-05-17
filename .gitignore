@@ -4,6 +4,9 @@ instances
 
 # vs generated files
 VNS/.vs/
+.vs/
+VNS/Release/
+VNS/VNS/Release/
 *.rsuser
 *.suo
 *.user
