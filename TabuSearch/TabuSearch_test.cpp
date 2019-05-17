@@ -91,3 +91,27 @@ TEST_CASE("Add tabu works properly"){
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 1) == true);
 
 }
+
+TEST_CASE("Update recency-frequency matrix works properly"){
+  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 1);
+  TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 2);
+  TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 3);
+
+  for(int i = 0; i < 3; i++){
+    REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, i + 1) == true);
+    REQUIRE(recencyFrequencyMatrix[0][i + 1] == 3);
+  }
+
+  for(int i = 0; i < 3; i++){
+    REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, i + 1) == true);
+    REQUIRE(recencyFrequencyMatrix[0][i + 1] == 3 - i);
+    TabuSearch::updateRecFreqMatrix(recencyFrequencyMatrix);
+  }
+
+  for(int i = 0; i < 3; i++){
+    REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, i + 1) == false);
+    REQUIRE(recencyFrequencyMatrix[0][i + 1] == 0);
+  }
+
+}
