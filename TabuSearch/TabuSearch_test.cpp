@@ -32,3 +32,34 @@ TEST_CASE("Swap function works properly"){
   REQUIRE(label[3] == 4);
 
 }
+
+
+TEST_CASE("Update best Solution works properly"){
+
+  static const int arr[] = {1,2,3,4};
+  std::vector<int> bestSolution(arr, arr + sizeof(arr) / sizeof(arr[0]) );
+  int bestValue = 10;
+
+  static const int arr2[] = {2,4,6,8};
+  std::vector<int> currentSolution(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+  int currentValue = 20;
+
+  static const int arr3[] = {4,8,12,16};
+  std::vector<int> currentSolution2(arr3, arr3 + sizeof(arr3) / sizeof(arr3[0]) );
+  int currentValue2 = 5;
+
+  TabuSearch::updateBestSolution(bestSolution, bestValue, currentSolution, currentValue);
+
+  REQUIRE(bestSolution[0] == 2);
+  REQUIRE(bestSolution[1] == 4);
+  REQUIRE(bestSolution[2] == 6);
+  REQUIRE(bestSolution[3] == 8);
+
+  TabuSearch::updateBestSolution(bestSolution, bestValue, currentSolution2, currentValue2);
+
+  REQUIRE(bestSolution[0] == 2);
+  REQUIRE(bestSolution[1] == 4);
+  REQUIRE(bestSolution[2] == 6);
+  REQUIRE(bestSolution[3] == 8);
+
+}
