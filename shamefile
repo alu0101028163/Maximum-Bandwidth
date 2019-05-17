@@ -1,0 +1,12 @@
+g++ -o test_antibandwidth -std=c++11 AntiBandwidth_test.cpp AntiBandwidth.cpp ../GraphGenerator/GraphGenerator.h ../GraphGenerator/GraphGenerator.cpp
+
+g++ -o test_determinist -std=c++11 DeterministAlgorithm_test.cpp DeterministAlgorithm.cpp ../GraphGenerator/GraphGenerator.h ../GraphGenerator/GraphGenerator.cpp ../AntiBandwidth/AntiBandwidth.cpp
+
+g++ -o determinist -std=c++11 -g main.cpp AntiBandwidth.cpp DeterministAlgorithm.cpp ../GRAPH/GraphGenerator/GraphGenerator.cpp
+
+g++ -std=c++11 -g main.cpp -o GraphGenerator GraphGenerator.cpp
+
+g++ -std=c++11 -o TabuSearch_test TabuSearch_test.cpp TabuSearch.cpp 
+
+g++ main.cpp -o TabuSearch -g -std=c++11 TabuSearch.cpp ../GraphGenerator/GraphGenerator.cpp ../AntiBandwidth/AntiBandwidth.cpp
+
