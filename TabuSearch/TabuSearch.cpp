@@ -17,10 +17,12 @@ namespace TabuSearch{
     // recency of movements in the superior diagonal.
     std::vector<std::vector<int> > recencyFrequencyMatrix = TabuSearch::initializeDataStructure(graph.size());
 
-    for(int i = 0; i < 10; i++){
+    int bestLocalFrequency = 99999;
 
-    MatrixGenerator::print_matrix(recencyFrequencyMatrix,graph.size(), graph.size());
-    std::cout << "\n";
+    for(int i = 0; i < 3000; i++){
+
+    // MatrixGenerator::print_matrix(recencyFrequencyMatrix,graph.size(), graph.size());
+    // std::cout << "\n";
     // -------------------------------------------------------------------------
     //                            LOCAL SEARCH
     // -------------------------------------------------------------------------
@@ -31,21 +33,51 @@ namespace TabuSearch{
     int bestLocalI = -1;
     int bestLocalJ = -1;
     int bestLocalValue = -9999;
-    int bestLocalFrequency = 99999;
+    int bestLocalFrequency = recencyFrequencyMatrix[1][0];
 
     for(int i = 0; i < graph.size(); i++){
       for(int j = i + 1 ; j < graph[i].size(); j++){
         int actualLocalValue;
-        if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) > bestLocalValue) && (recencyFrequencyMatrix[i][j] <= bestLocalFrequency)){
+        int actualFrequency = recencyFrequencyMatrix[j][i];
 
-            if((!isTabu(recencyFrequencyMatrix,i,j)) || (actualLocalValue > bestValue)){
-                 std::cout << "ACTUAL LOCAL VALUE: " << actualLocalValue << "\n";
-                 bestLocalValue = actualLocalValue;
-                 bestLocalI = i;
-                 bestLocalJ = j;
-                 bestLocalFrequency = recencyFrequencyMatrix[i][j];
-             }
-           }
+        // std::cout << "BEST LOCAL FREQUENCY: " << bestLocalFrequency << "\n";
+        // std::cout << "ACTUAL FREQUENCY: " << actualFrequency << "\n";
+
+
+        if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualFrequency < bestLocalFrequency)){
+          bestLocalValue = actualLocalValue;
+          bestLocalI = i;
+          bestLocalJ = j;
+          bestLocalFrequency = recencyFrequencyMatrix[j][i];
+
+        }else if(actualFrequency < bestLocalFrequency){
+          // if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
+            bestLocalValue = actualLocalValue;
+            bestLocalI = i;
+            bestLocalJ = j;
+            bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          // }
+        }else if (actualFrequency == bestLocalFrequency){
+          if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
+            bestLocalValue = actualLocalValue;
+            bestLocalI = i;
+            bestLocalJ = j;
+            bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          }
+        }
+
+
+        // if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
+        //
+        //     if((!isTabu(recencyFrequencyMatrix,i,j)) || (actualLocalValue > bestValue)){
+        //          std::cout << "ACTUAL LOCAL VALUE: " << actualLocalValue << "\n";
+        //          bestLocalValue = actualLocalValue;
+        //          bestLocalI = i;
+        //          bestLocalJ = j;
+        //          bestLocalFrequency = recencyFrequencyMatrix[i][j];
+        //      }
+        //
+        //  }
       }
     }
 
@@ -68,6 +100,10 @@ namespace TabuSearch{
       std::cout << bestSolution[i] << " ";
   std::cout << "\n";
   std::cout << "BEST VALUE IS: " << bestValue << "\n";
+
+  }
+
+  void setLocalSolution(int& bestLocalI, int& bestLocalJ, int& bestLocalValue, int& best){
 
   }
 
