@@ -6,6 +6,7 @@
 
 namespace AntiBandwidth {
 
+
   typedef std::vector<int> solutionT; // If any modification was to be made to the datatype, 
 									   // change would be easy and clean
 
