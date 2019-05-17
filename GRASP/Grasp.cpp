@@ -4,22 +4,22 @@
 std::vector<std::vector<short int>> fileRead(const std::string &filename, bool isDense){
     std::vector<std::vector<short int> >  adjacencyMatrix;
 
-    if(isDense == 1){
+    if(isDense){
         adjacencyMatrix = ABM::denseFileToGraph(filename);
     }
-    else if(isDense == 0){
+    else{
         adjacencyMatrix = ABM::disperseFileToGraph(filename);
     }
     return adjacencyMatrix;
 }
 
 std::vector<short int> candidateList(std::vector<std::vector<short int>>& adjacencyMatrix){
-    std::vector<short int> candiatesList;
+    std::vector<short int> candidatesList;
 
     for ( int i = 1; i <= adjacencyMatrix.size(); ++i ) {
-        candiatesList.push_back(i);
+        candidatesList.push_back(i);
     }
-    return candiatesList;
+    return candidatesList;
 
     //TODO
     //  Check that it works good.

@@ -12,8 +12,15 @@ namespace TabuSearch{
     // Stores the possible movements and their associated benefit.
     std::vector<std::vector<int> > movementsMatrix = TabuSearch::initializeDataStructure(graph.size());
 
+    for(int i = 0; i < movementsMatrix.size(); i++)
+        evaluateMovements(i, movementsMatrix, graph, initialSolution);
 
-
+    for(int i = 0; i < movementsMatrix.size(); i++){
+      for(int j = 0; j < movementsMatrix[i].size(); j++){
+        std::cout << movementsMatrix[i][j] << " ";
+      }
+        std::cout << "\n";
+    }
 
   }
 

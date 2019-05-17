@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
-#include "GraphGenerator.h"
+#include "../GraphGenerator/GraphGenerator.h"
 
 const int RCL_SIZE = 4;
 
