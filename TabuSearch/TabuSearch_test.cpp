@@ -63,3 +63,14 @@ TEST_CASE("Update best Solution works properly"){
   REQUIRE(bestSolution[3] == 8);
 
 }
+
+
+TEST_CASE(" Is tabu works properly"){
+
+
+  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 1) == true);
+  REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 2) == false);
+
+
+}
