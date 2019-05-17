@@ -24,6 +24,21 @@ namespace TabuSearch{
 
   }
 
+  std::vector<int> generateRandomSolution(int numberOfVertexs){
+
+    // Vector where label will be stored.
+    std::vector<int> label;
+
+    for (int i = 1; i <= numberOfVertexs; i++){
+      label.push_back(i);
+    }
+
+    std::next_permutation(std::begin(label),std::end(label));
+
+    return label;
+  }
+
+
 
   void evaluateMovements(int edge, std::vector<std::vector<int> >& movementsMatrix,
                         std::vector< std::vector<short int> > graph, std::vector<int> actualSolution){

@@ -10,6 +10,7 @@ namespace TabuSearch{
    */
   std::vector<std::vector<int> > initializeDataStructure(int dimension);
   std::vector<int> move(int edge1, int edge2, std::vector<int> actualSolution);
+  std::vector<int> generateRandomSolution(int numberOfVertexs);
   void evaluateMovements(int edge, std::vector<std::vector<int> >& movementsMatrix,
        std::vector< std::vector<short int> > graph, std::vector<int> actualSolution);
 }
