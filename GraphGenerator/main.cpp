@@ -4,8 +4,7 @@
 #include <cassert>
 #include "GraphGenerator.h"
 
-
-using namespace ABM;
+using namespace GraphGen;
 using namespace std;
 
 int main(int argc, char* argv[]) {
