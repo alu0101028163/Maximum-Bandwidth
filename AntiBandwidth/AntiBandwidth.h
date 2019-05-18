@@ -1,4 +1,5 @@
 #pragma once
+
 #include <algorithm>
 #include <limits>
 #include <iostream>
@@ -19,7 +20,5 @@ namespace AntiBandwidth {
    * @return       the minimum distance between all the nodes of the graph.
    */
   int objectiveFunction(std::vector< std::vector<short int> > graph, std::vector<int> label);
-
-
 
 }
