@@ -15,6 +15,12 @@ namespace Grasp{
     void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
     int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
     std::vector<int>& calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+
+    /**
+     * Calculates the biggest integer left in the list.
+     * @param  remainingLabels
+     * @return
+     */
     int calculateCardinality(std::list<int>& remainingLabels);
 
 
@@ -24,7 +30,7 @@ namespace Grasp{
      * if the label value in the node position is different than zero, which is
      * the value it was initialized with.
      * @param  node
-     * @param  labeling 
+     * @param  labeling
      * @return
      */
     bool isVisited(int node, std::vector<int>& labeling);

@@ -44,3 +44,18 @@ TEST_CASE("Is visited works properly"){
 
 
 }
+
+
+TEST_CASE("Calculate cardinality"){
+
+  std::list<int> label({1,2,3,4});
+  REQUIRE(Grasp::calculateCardinality(label) == 4);
+
+  std::list<int> label2({1,20,3,4});
+  REQUIRE(Grasp::calculateCardinality(label2) == 20);
+
+  std::list<int> label3({40,20,3,4});
+  REQUIRE(Grasp::calculateCardinality(label3) == 40);
+
+
+}
