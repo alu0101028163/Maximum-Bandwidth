@@ -1,5 +1,6 @@
 #include "AntiBandwidth.h"
 
+
 namespace AntiBandwidth{
 
   int objectiveFunction( std::vector< std::vector<short int> > graph, std::vector<int> label){

@@ -5,8 +5,14 @@ instances
 # vs generated files
 VNS/.vs/
 .vs/
+VNS/AntiBandwidthLib/
+VNS/CatchLib/
+VNS/GraphGeneratorLib/
 VNS/Release/
 VNS/VNS/Release/
+VNS/Debug/
+VNS/VNS/Debug/
+
 *.rsuser
 *.suo
 *.user
