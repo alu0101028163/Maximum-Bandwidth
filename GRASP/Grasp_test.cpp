@@ -20,3 +20,17 @@ TEST_CASE("Get random label from vector works properly"){
   REQUIRE(label2 <= 4);
 
 }
+
+TEST_CASE("Get random label from list works properly"){
+
+  std::list<int> label({1,2,3,4});
+  int label1 = Grasp::getRandomLabel(label);
+  std::cout << label1 << "\n";
+  REQUIRE(label1 >= 1);
+  REQUIRE(label1 <= 4);
+
+  int label2 = Grasp::getRandomLabel(label);
+  std::cout << label2 << "\n";
+  REQUIRE(label2 >= 1);
+  REQUIRE(label2 <= 4);
+}
