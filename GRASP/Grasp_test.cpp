@@ -88,17 +88,30 @@ TEST_CASE("Calculate cardinality works properly"){
 }
 
 
-// TEST_CASE("Calculate Candidate List works properly"){
-//
-//
-//   int parentNode = 0;
-//   static const int arr[] = {3,0,0,0};
-//   std::vector<int> labeling(arr, arr + sizeof(arr) / sizeof(arr[0]) );
-//   std::list<int> remainingLabels({1,2,4});
-//   std::vector<int> RCL = Grasp::calculateCandidateList(parentNode,remainingLabels,labeling);
-//
-//   REQUIRE(RCL.size() == 1);
-//   REQUIRE(RCL[0] == 1);
-//
-//
-// }
+TEST_CASE("Calculate Candidate List works properly"){
+
+
+  int parentNode = 0;
+  static const int arr[] = {3,0,0,0};
+  std::vector<int> labeling(arr, arr + sizeof(arr) / sizeof(arr[0]) );
+  std::list<int> remainingLabels({1,2,4});
+  std::vector<int> RCL = Grasp::calculateCandidateList(parentNode,remainingLabels,labeling);
+
+  REQUIRE(RCL.size() == 1);
+  REQUIRE(RCL[0] == 1);
+
+
+  int parentNode2 = 1;
+  static const int arr2[] = {0,1,0,0};
+  std::vector<int> labeling2(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+  std::list<int> remainingLabels2({8,7,6});
+  std::vector<int> RCL2 = Grasp::calculateCandidateList(parentNode2,remainingLabels2,labeling2);
+
+  REQUIRE(RCL2.size() == 3);
+  REQUIRE(RCL2[0] == 8);
+  REQUIRE(RCL2[1] == 7);
+  REQUIRE(RCL2[2] == 6);
+
+
+
+}

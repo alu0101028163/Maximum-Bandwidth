@@ -67,9 +67,7 @@ namespace Grasp{
 
     for (auto it = remainingLabels.begin(); it != remainingLabels.end(); it++){
         result = abs(labeling[parentNode] - *it);
-        std::cout << "RESULT: "  << result << "\n";
-        std::cout << "CARDINALITY: "  << (cardinality * PERCENTAGE) << "\n";
-
+        
         if(result >= (cardinality * PERCENTAGE)){
            candidateList.push_back(*it);
         }
