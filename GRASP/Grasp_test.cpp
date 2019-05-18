@@ -46,20 +46,6 @@ TEST_CASE("Is visited works properly"){
 }
 
 
-// TEST_CASE("Calculate cardinality works properly"){
-//
-//   std::list<int> label({1,2,3,4});
-//   REQUIRE(Grasp::calculateCardinality(label) == 4);
-//
-//   std::list<int> label2({1,20,3,4});
-//   REQUIRE(Grasp::calculateCardinality(label2) == 20);
-//
-//   std::list<int> label3({40,20,3,4});
-//   REQUIRE(Grasp::calculateCardinality(label3) == 40);
-//
-//
-// }
-
 TEST_CASE("Calculate Differences works properly"){
 
   int parentNode = 0;
@@ -79,6 +65,25 @@ TEST_CASE("Calculate Differences works properly"){
   REQUIRE(differences2[0] == 3);
   REQUIRE(differences2[1] == 7);
   REQUIRE(differences2[2] == 2);
+
+}
+
+TEST_CASE("Calculate cardinality works properly"){
+
+  int parentNode = 0;
+  static const int arr[] = {3,0,0,0};
+  std::vector<int> labeling(arr, arr + sizeof(arr) / sizeof(arr[0]) );
+  std::list<int> remainingLabels({1,2,4});
+
+  int cardinality = Grasp::calculateCardinality(parentNode, remainingLabels, labeling);
+  REQUIRE(cardinality == 2);
+
+  static const int arr2[] = {3,0,0,0};
+  std::vector<int> labeling2(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+  std::list<int> remainingLabels2({6,10,1});
+  cardinality = Grasp::calculateCardinality(parentNode, remainingLabels2, labeling2);
+
+  REQUIRE(cardinality == 7);
 
 }
 
