@@ -115,3 +115,29 @@ TEST_CASE("Calculate Candidate List works properly"){
 
 
 }
+
+
+TEST_CASE("Calculate Label works properly"){
+
+
+  int parentNode = 0;
+  static const int arr[] = {3,0,0,0};
+  std::vector<int> labeling(arr, arr + sizeof(arr) / sizeof(arr[0]) );
+  std::list<int> remainingLabels({1,2,4});
+  int label = Grasp::calculateLabel(parentNode,remainingLabels,labeling);
+
+  REQUIRE(label == 1);
+
+  int parentNode2 = 1;
+  static const int arr2[] = {0,1,0,0};
+  std::vector<int> labeling2(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]) );
+  std::list<int> remainingLabels2({8,7,6});
+  label = Grasp::calculateLabel(parentNode2,remainingLabels2,labeling2);
+
+  REQUIRE(label >= 6);
+  REQUIRE(label <= 8);
+
+  std::cout << "LABEL: " << label << "\n";
+
+
+}

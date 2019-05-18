@@ -14,13 +14,49 @@ namespace Grasp{
 
     void constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
     void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
+
+
+    /**
+     * Returns a random label from the candidate list of labels and removes the selected candidate label from the
+     * remaining label list.
+     * @param  parentNode
+     * @param  remainingLabels
+     * @param  labeling
+     * @return
+     */
     int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+
+
+    /**
+     * Calculates a vector of labels that can be selected as new label for an specific adjacent node of parentNode.
+     * @param  parentNode
+     * @param  remainingLabels
+     * @param  labeling
+     * @return
+     */
     std::vector<int> calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
 
 
-     std::vector<int> calculateDifferences(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    /**
+     * Calculates the largest difference between the label that belongs to parentNode and the remaining labels.
+     * @param  parentNode
+     * @param  remainingLabels
+     * @param  labeling
+     * @return
+     */
      int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+
+
+
+     /**
+      * Calculate the differences between the label that belongs to parentNode and the remaining labels.
+      * @param  parentNode
+      * @param  remainingLabels
+      * @param  labeling
+      * @return a vector with all the differences.
+      */
+     std::vector<int> calculateDifferences(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
 
     /**

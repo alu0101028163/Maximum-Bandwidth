@@ -51,6 +51,7 @@ namespace Grasp{
   int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
     std::vector<int> candidateList = calculateCandidateList(parentNode, remainingLabels, labeling);
+
     int randomCandidate = getRandomLabel(candidateList);
     remainingLabels.remove(randomCandidate);
 
@@ -67,7 +68,7 @@ namespace Grasp{
 
     for (auto it = remainingLabels.begin(); it != remainingLabels.end(); it++){
         result = abs(labeling[parentNode] - *it);
-        
+
         if(result >= (cardinality * PERCENTAGE)){
            candidateList.push_back(*it);
         }
@@ -99,12 +100,19 @@ namespace Grasp{
   }
 
   int getRandomLabel(std::vector<int>& labels){
-      int label = (rand() % (labels.size() - 1)) + 1;
+      int label = 0;
+      if(labels.size() > 1){
+        label = (rand() % (labels.size() - 1)) + 1;
+      }
       return labels[label];
   }
 
   int getRandomLabel(std::list<int>& labels){
-      int nLabel = (rand() % (labels.size() - 1)) + 1;
+      int nLabel = 0;
+
+      if(labels.size() > 1){
+         nLabel = (rand() % (labels.size() - 1)) + 1;
+      }
 
       std::list<int>::iterator it = labels.begin();
       std::advance(it, nLabel);
