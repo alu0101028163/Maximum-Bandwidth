@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 #include <stdlib.h>
+#include <iostream>
 #include <algorithm>
 
 
@@ -14,14 +15,12 @@ namespace Grasp{
     void constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
     void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
     int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
-    std::vector<int>& calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    std::vector<int> calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
-    /**
-     * Calculates the biggest integer left in the list.
-     * @param  remainingLabels
-     * @return
-     */
-    int calculateCardinality(std::list<int>& remainingLabels);
+
+
+     std::vector<int> calculateDifferences(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+     int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
 
     /**

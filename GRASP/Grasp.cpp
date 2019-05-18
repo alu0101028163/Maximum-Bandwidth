@@ -58,15 +58,19 @@ namespace Grasp{
 
   }
 
-  std::vector<int>& calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
-    int cardinality = calculateCardinality(remainingLabels);
+  std::vector<int> calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
+    int cardinality = calculateCardinality(parentNode, remainingLabels, labeling);
+
     std::vector<int> candidateList;
 
     int result = 0;
 
     for (auto it = remainingLabels.begin(); it != remainingLabels.end(); it++){
         result = abs(labeling[parentNode] - *it);
-        if((result * PERCENTAGE) > cardinality){
+        std::cout << "RESULT: "  << result << "\n";
+        std::cout << "CARDINALITY: "  << (cardinality * PERCENTAGE) << "\n";
+
+        if(result >= (cardinality * PERCENTAGE)){
            candidateList.push_back(*it);
         }
       }
@@ -74,8 +78,20 @@ namespace Grasp{
     return candidateList;
   }
 
-  int calculateCardinality(std::list<int>& remainingLabels){
-    return *std::max_element(std::begin(remainingLabels), std::end(remainingLabels));
+  std::vector<int> calculateDifferences(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
+    std::vector<int> differences;
+    int result = 0;
+
+    for (auto it = remainingLabels.begin(); it != remainingLabels.end(); it++){
+        result = abs(labeling[parentNode] - *it);
+        differences.push_back(result);
+      }
+    return differences;
+  }
+
+  int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
+    std::vector<int> differences = calculateDifferences(parentNode, remainingLabels, labeling);
+    return *std::max_element(std::begin(differences), std::end(differences));
   }
 
   bool isVisited(int node, std::vector<int>& labeling){
