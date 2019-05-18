@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "../AntiBandwidth/catch.hpp"
+#include "../GraphGenerator/GraphGenerator.h"
 #include "Grasp.h"
 
 TEST_CASE("Get random label from vector works properly"){
@@ -137,7 +138,23 @@ TEST_CASE("Calculate Label works properly"){
   REQUIRE(label >= 6);
   REQUIRE(label <= 8);
 
-  std::cout << "LABEL: " << label << "\n";
+}
+
+TEST_CASE("Construct greedy randomized solution works properly"){
+
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
+  std::vector<int> solutionElements;
+
+  for(int i = 1; i <= graph.size(); i++){
+    solutionElements.push_back(i);
+  }
+
+  std::vector<int> labeling = Grasp::constructGreedyRandomizedSolution(graph,solutionElements);
+  auto it = std::unique(labeling.begin(), labeling.end());
+
+
+  REQUIRE(labeling.size() == graph.size());
+  REQUIRE(it == labeling.end());
 
 
 }

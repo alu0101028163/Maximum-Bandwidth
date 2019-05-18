@@ -19,8 +19,8 @@ namespace Grasp{
 
 
 
-  void constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
-
+  std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
+        srand((int)time(0));
         // std::vector<short int> visitedNodes;
         std::list<int> remainingLabels;
         std::copy(solutionElements.begin(), solutionElements.end(), std::back_inserter(remainingLabels));
@@ -32,6 +32,8 @@ namespace Grasp{
         remainingLabels.remove(label);
 
         constructSolution(0,graph,remainingLabels,labeling);
+
+        return labeling;
 
   }
 
