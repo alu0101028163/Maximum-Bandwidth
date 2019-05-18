@@ -1,116 +1,101 @@
 #include "Grasp.h"
 
 
-std::vector<std::vector<short int>> fileRead(const std::string &filename, bool isDense){
-    std::vector<std::vector<short int> >  adjacencyMatrix;
 
-    if(isDense){
-        adjacencyMatrix = ABM::denseFileToGraph(filename);
-    }
-    else{
-        adjacencyMatrix = ABM::disperseFileToGraph(filename);
-    }
-    return adjacencyMatrix;
-}
 
-std::vector<short int> candidateList(std::vector<std::vector<short int>>& adjacencyMatrix){
-    std::vector<short int> candidatesList;
+namespace Grasp{
 
-    for ( int i = 1; i <= adjacencyMatrix.size(); ++i ) {
-        candidatesList.push_back(i);
-    }
-    return candidatesList;
-
-    //TODO
-    //  Check that it works good.
-}
-
-void candidatelistEraseElement(std::vector<short int>& auxVec, short int toDelete){
-    int i = 0;
-    bool found = false;
-    while (i < auxVec.size() && !found){
-        if(auxVec[i] == toDelete)
-            found = true;
-        else
-            i++;
-    }
-    if(found)
-        auxVec.erase(auxVec.begin() + i);///Erase the element
-    else{
-        ///BUSCAR EXCEPCIÓN QUE LANZAR
-    }
-}
-
-std::vector<short int> greedyFunction(std::vector<std::vector<short int>>& adjacencyMatrix,
-                                      std::vector<short int>& candidateList, const std::string &filename, bool isDense){
-
-    //Suponemos que ya se ha llamado a "fileRead" y ya tenemos nuestra matriz de adyacencia pasada por referencia.
-    //A continuación, deberemos coger y crear la lista de candidatos, la cual supondremos crear fuera de esta función y pasarla por referencia.
-
-    //===========================
-    //      VECTORS TO USE
-    //===========================
-
-    std::vector<short int> vertex;  ///Vector of vertex of the graph.
-    std::vector<short int> value(adjacencyMatrix.size(),0); ///Value of each vertex of the graph.
-    std::vector<short int> rcl(RCL_SIZE);     ///Restricted candidate list.
-    std::vector<bool>      visited(adjacencyMatrix.size(), 0); ///Vector of 1 (true) or 0 (false) for represent visited vertex.
-    std::vector<short int> index(adjacencyMatrix.size()); ///Vector that contains the indexes to access our other vector(vertex).
-
-    //============================
-
-    std::iota(vertex.begin(), vertex.end(), 1);
-    std::iota(index.begin(), index.end(), 0);
-
-    //A continuación, buscamos un nodo aleatorio por el cual comenzar:
-
-    std::srand ( unsigned ( std::time(0) ) );
-    std::random_shuffle ( index.begin(), index.end() );
-
-    short int chosenVertex = index[0];
-
-    //Seguidamente, se busca el valor aleatorio para ese nodo:
-
-    std::srand ( unsigned ( std::time(0) ) );
-    std::random_shuffle ( index.begin(), index.end() );
-
-    short int randomValue = index[0];
-
-    //Asignamos el valor al nodo y lo marcamos como visitado:
-
-    value[chosenVertex] = randomValue;
-    visited[chosenVertex] = true;
-
-    //Ahora eliminamos de la lista de candidatos el valor elegido.
-    candidatelistEraseElement(candidateList, randomValue);
-
-    //Llenamos la rcl:
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    while(i < rcl.size()){
-        /*
-         * Ahora mismo está planteada la rcl para que tenga un tmaño fijo (4). Si queremos que sea variable, hay que buscar otra alternativa.
-         */
-        if(j < adjacencyMatrix.size()) {
-            if ((candidateList[j] == randomValue + 1) || (candidateList[j] == randomValue + 2) ||
-                (candidateList[j] == randomValue - 1) ||
-                (candidateList[j] == randomValue - 2)) {
-                rcl.push_back(candidateList[j]);
-                candidatelistEraseElement(candidateList, candidateList[j]);
-                i++;
-            }
-            j++;
-        } else
-            j = 0;
-    }
-
-    //TODO
-    // Comprobar los vértices con los que está conectado el vertice escogido aleatoriamente. Si no hacemos esto, la rcl no estará bien.
+  //
+  // void grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
+  //   srand((int)time(0));
+  //
+  //
+  //   std::vector<int> solutionElements;
+  //   for(int i = 1; i <= graph.size(); i++)
+  //       solutionElements.push_back(i);
+  //
+  // }
 
 
 
 
+  void constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
+
+        // std::vector<short int> visitedNodes;
+        std::list<int> remainingLabels;
+        std::copy(solutionElements.begin(), solutionElements.end(), std::back_inserter(remainingLabels));
+        std::vector<int> labeling(graph.size());
+
+        int label = getRandomLabel(remainingLabels);
+        labeling[0] = label;
+
+        remainingLabels.remove(label);
+
+        constructSolution(0,graph,remainingLabels,labeling);
+
+  }
+
+
+  void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
+       for(int i = actualNode; i < graph.size(); i++){
+         for(int j = 0; j < graph.size(); j++){
+           if((graph[i][j] == 1) && (!isVisited(j, labeling))){
+               labeling[j] = calculateLabel(i,remainingLabels,labeling);
+               constructSolution(j,graph,remainingLabels,labeling);
+           }
+         }
+       }
+  }
+
+
+  int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
+
+    std::vector<int> candidateList = calculateCandidateList(parentNode, remainingLabels, labeling);
+    int randomCandidate = getRandomLabel(candidateList);
+    remainingLabels.remove(randomCandidate);
+
+    return randomCandidate;
+
+  }
+
+  std::vector<int>& calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
+    int cardinality = calculateCardinality(remainingLabels);
+    std::vector<int> candidateList;
+
+    int result = 0;
+
+    for (auto it = remainingLabels.begin(); it != remainingLabels.end(); it++){
+        result = abs(labeling[parentNode] - *it);
+        if((result * PERCENTAGE) > cardinality){
+           candidateList.push_back(*it);
+        }
+      }
+
+    return candidateList;
+  }
+
+  int calculateCardinality(std::list<int>& remainingLabels){
+    return *std::max_element(std::begin(remainingLabels), std::end(remainingLabels));
+  }
+
+  bool isVisited(int node, std::vector<int>& labeling){
+       if(labeling[node] != 0)
+          return true;
+       else return false;
+  }
+
+  int getRandomLabel(std::vector<int>& labels){
+      int label = (rand() % (labels.size() - 1)) + 1;
+      return labels[label];
+  }
+
+  int getRandomLabel(std::list<int>& labels){
+      int nLabel = (rand() % (labels.size() - 1)) + 1;
+
+      std::list<int>::iterator it = labels.begin();
+      std::advance(it, nLabel);
+      return *it;
+  }
 
 
 

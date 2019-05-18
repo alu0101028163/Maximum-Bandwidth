@@ -1,30 +1,23 @@
-//
-// Created by basilio on 16/05/19.
-//
-
-#ifndef CLION_BASI2_GRASP_H
-#define CLION_BASI2_GRASP_H
-
+#pragma once
 #include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include "../GraphGenerator/GraphGenerator.h"
+#include <list>
+#include <stdlib.h>
+#include <algorithm>
 
-const int RCL_SIZE = 4;
+
+
 
 namespace Grasp{
 
-//===================================================
-//              CONSTRUCTIVE PHASE
-//===================================================
+    const float PERCENTAGE = 0.6;
 
-    std::vector<std::vector<short int>> fileRead(const std::string &filename, bool isDense);
-    std::vector<short int> candidateList(std::vector<std::vector<short int>>& adjacencyMatrix);
-    std::vector<short int> greedyFunction(std::vector<std::vector<short int>>& adjacencyMatrix,
-                                          std::vector<short int>& candidateList, const std::string &filename );
-    void candidatelistEraseElement(std::vector<short int>& auxVec, short int toDelete);
+    void constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
+    void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    std::vector<int>& calculateCandidateList(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    int calculateCardinality(std::list<int>& remainingLabels);
+    bool isVisited(int node, std::vector<int>& labeling);
+    int getRandomLabel(std::vector<int>& labels);
+    int getRandomLabel(std::list<int>& labels);
 
 }
-
-#endif //CLION_BASI2_GRASP_H
