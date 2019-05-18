@@ -2,7 +2,7 @@
 
 namespace TabuSearch{
 
-  void tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph){
+  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue){
 
     // Evaluating the initial solution we get the best objective function value for our problem.
     int bestValue = AntiBandwidth::objectiveFunction(graph,initialSolution);
@@ -17,6 +17,10 @@ namespace TabuSearch{
     // recency of movements in the superior diagonal.
     std::vector<std::vector<int> > recencyFrequencyMatrix = TabuSearch::initializeDataStructure(graph.size());
 
+    int iteration = 0;
+
+    while((iteration < maxIterations) && (bestValue < objectiveValue)){
+
 
     // -------------------------------------------------------------------------
     //                            LOCAL SEARCH
@@ -25,22 +29,34 @@ namespace TabuSearch{
     // We evaluate all k = 2 swapping combinations and their profit.
     // The solution are two indexes, corresponding to the two nodes that will be swapped.
 
-    int bestLocalI = 0;
-    int bestLocalJ = 1;
-    int bestLocalValue = evaluateMovement(0,1,currentSolution,graph);
+    int bestLocalI = -1;
+    int bestLocalJ = -1;
+    int bestLocalValue = -9999;
+    int bestLocalFrequency = recencyFrequencyMatrix[1][0];
 
     for(int i = 0; i < graph.size(); i++){
       for(int j = i + 1 ; j < graph[i].size(); j++){
         int actualLocalValue;
-        if((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) > bestLocalValue){
+        int actualFrequency = recencyFrequencyMatrix[j][i];
 
-            // if(movementIsTabu(i,j)){
-            //    if(actualSolution > )
-            // }
+        if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualFrequency < bestLocalFrequency)){
+          bestLocalValue = actualLocalValue;
+          bestLocalI = i;
+          bestLocalJ = j;
+          bestLocalFrequency = recencyFrequencyMatrix[j][i];
 
+        }else if(actualFrequency < bestLocalFrequency){
             bestLocalValue = actualLocalValue;
             bestLocalI = i;
             bestLocalJ = j;
+            bestLocalFrequency = recencyFrequencyMatrix[j][i];
+        }else if (actualFrequency == bestLocalFrequency){
+          if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
+            bestLocalValue = actualLocalValue;
+            bestLocalI = i;
+            bestLocalJ = j;
+            bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          }
         }
       }
     }
@@ -57,14 +73,24 @@ namespace TabuSearch{
     // And now we set the actual movement as tabu movement
     addTabu(recencyFrequencyMatrix, 3, bestLocalI, bestLocalJ);
 
+    iteration += 1;
+  }
+
+  std::cout << "BEST SOLUTION IS: ";
+  for(int i = 0; i < bestSolution.size(); i++)
+      std::cout << bestSolution[i] << " ";
+  std::cout << "\n";
+  std::cout << "BEST VALUE IS: " << bestValue << "\n";
+  std::cout << "Nº ITERATIONS IS: " << iteration << "\n";
+
+  return bestSolution;
 
   }
 
 
-
   void updateRecFreqMatrix(std::vector<std::vector<int> >& recencyFrequencyMatrix){
     for(int i = 0; i < recencyFrequencyMatrix.size(); i++){
-      for(int j = 0; j < recencyFrequencyMatrix.size(); j++){
+      for(int j = i + 1; j < recencyFrequencyMatrix.size(); j++){
         if(isTabu(recencyFrequencyMatrix, i, j)){
            recencyFrequencyMatrix[i][j] -= 1; // We decrement tabu time.
         }

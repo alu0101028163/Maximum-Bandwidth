@@ -1,6 +1,5 @@
 ﻿// GraphGenerator.h: include std files / project specific files.
 #pragma once
-
 #include <random>
 #include <algorithm>
 #include <iostream>

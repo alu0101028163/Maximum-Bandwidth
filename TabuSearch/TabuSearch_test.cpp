@@ -3,8 +3,7 @@
 #include "catch.hpp"
 #include "TabuSearch.h"
 #include "../GraphGenerator/GraphGenerator.h"
-#include "../GraphGenerator/Matrix_generator.hpp"
-
+#include "../MatrixGenerator/Matrix_generator.hpp"
 
 
 TEST_CASE("Data structure initializer works properly"){
@@ -67,7 +66,7 @@ TEST_CASE("Update best Solution works properly"){
 
 TEST_CASE("Is tabu works properly"){
 
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 1) == true);
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 2) == false);
 
@@ -77,7 +76,7 @@ TEST_CASE("Is tabu works properly"){
 TEST_CASE("Add tabu works properly"){
 
 
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
 
   REQUIRE(TabuSearch::isTabu(recencyFrequencyMatrix, 0, 2) == false);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 2);
@@ -93,7 +92,7 @@ TEST_CASE("Add tabu works properly"){
 }
 
 TEST_CASE("Update recency-frequency matrix works properly"){
-  std::vector<std::vector<int> > recencyFrequencyMatrix = file_to_matrix("./recFreqMatrix.txt");
+  std::vector<std::vector<int> > recencyFrequencyMatrix = MatrixGenerator::file_to_matrix("./recFreqMatrix.txt");
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 1);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 2);
   TabuSearch::addTabu(recencyFrequencyMatrix, 3, 0, 3);
@@ -120,7 +119,7 @@ TEST_CASE("Update recency-frequency matrix works properly"){
 TEST_CASE("Evaluate movement works properly"){
 
 
-  std::vector<std::vector<short int> > graph = ABM::denseFileToGraph("./inst1.txt");
+  std::vector<std::vector<short int> > graph = GraphGen::denseFileToGraph("./inst1.txt");
   static const int arr[] = {2,4,6,5,8};
   std::vector<int> label(arr, arr + sizeof(arr) / sizeof(arr[0]) );
 
@@ -133,5 +132,21 @@ TEST_CASE("Evaluate movement works properly"){
   REQUIRE(label[3] == 5);
   REQUIRE(label[4] == 8);
   REQUIRE(movementValue == 2);
+
+}
+
+
+TEST_CASE("Tabu search works properly"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,3000,19);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) == 19);
 
 }
