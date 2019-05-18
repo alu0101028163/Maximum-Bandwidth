@@ -1,24 +1,17 @@
 #include "neighborhood.h"
 
+// ---------------------------------------------------------------------------------------
+//					    CANDIDATE LIST NEIGHBORHOOD EXPLORATION
+// ---------------------------------------------------------------------------------------
+
 std::vector<int> NeighborStructs::GLCandidateList(
 	const AntiBandwidth::solutionT & labeling,
 	const std::vector<std::vector<short int>>& adjMatrix) {
 
-	// to be implemented
+	// TODO:
 
 	return std::vector<int>();
 }
-
-void NeighborStructs::swap(int index1, int index2, AntiBandwidth::solutionT & labeling) {
-
-	AntiBandwidth::solutionT::value_type aux = labeling[index1];
-	labeling[index1] = labeling[index2];
-	labeling[index2] = aux;
-}
-
-// ---------------------------------------------------------------------------------------
-//					    CANDIDATE LIST NEIGHBORHOOD EXPLORATION
-// ---------------------------------------------------------------------------------------
 
 AntiBandwidth::solutionT NeighborStructs::simpleExchangeGL(
 	const AntiBandwidth::solutionT& labeling,
@@ -137,4 +130,32 @@ AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchange(
 
 
 	return labeling;
+}
+
+// --------------------------------------------------------------------------------------
+//							RANDOM NEIGHBORHOOD EXPLORATION
+// --------------------------------------------------------------------------------------
+
+AntiBandwidth::solutionT NeighborStructs::simpleExchangeR(
+	const AntiBandwidth::solutionT & labeling,
+	const std::vector<std::vector<short int>>& adjMatrix) {
+	
+	// TODO: 
+	return AntiBandwidth::solutionT();
+}
+
+AntiBandwidth::solutionT NeighborStructs::doubleExchangeR(
+	const AntiBandwidth::solutionT & labeling, 
+	const std::vector<std::vector<short int>>& adjMatrix) {
+	
+	//TODO: 
+	return AntiBandwidth::solutionT();
+}
+
+AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchangeR(
+	const AntiBandwidth::solutionT & labeling, 
+	const std::vector<std::vector<short int>>& adjMatrix) {
+	
+	//TODO:
+	return AntiBandwidth::solutionT();
 }
