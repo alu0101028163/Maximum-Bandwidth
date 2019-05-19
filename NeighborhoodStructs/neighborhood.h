@@ -69,17 +69,17 @@ namespace NeighborStructs {
 		const std::vector<std::vector<short int> >& adjMatrix);
 
 	// --------------------------------------------------------------------------------------
-	//							RANDOM NEIGHBORHOOD EXPLORATION
+	//							RANDOM NEIGHBOR OBTENTION
 	// --------------------------------------------------------------------------------------
 	
-	AntiBandwidth::solutionT simpleExchangeR(const AntiBandwidth::solutionT& labeling,
-		const std::vector<std::vector<short int> >& adjMatrix);
+	AntiBandwidth::solutionT simpleExchangeR(AntiBandwidth::solutionT labeling,
+		const std::vector<std::vector<short int> >& adjMatrix, std::mt19937& generator);
 
-	AntiBandwidth::solutionT doubleExchangeR(const AntiBandwidth::solutionT& labeling,
-		const std::vector<std::vector<short int> >& adjMatrix);
+	AntiBandwidth::solutionT doubleExchangeR(AntiBandwidth::solutionT labeling,
+		const std::vector<std::vector<short int> >& adjMatrix, std::mt19937& generator);
 
-	AntiBandwidth::solutionT cyclicAdjExchangeR(const AntiBandwidth::solutionT& labeling,
-		const std::vector<std::vector<short int> >& adjMatrix);
+	AntiBandwidth::solutionT cyclicAdjExchangeR(AntiBandwidth::solutionT labeling,
+		const std::vector<std::vector<short int> >& adjMatrix, std::mt19937& generator);
 	
 }
 

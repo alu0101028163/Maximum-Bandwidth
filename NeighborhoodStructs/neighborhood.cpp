@@ -137,25 +137,78 @@ AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchange(
 // --------------------------------------------------------------------------------------
 
 AntiBandwidth::solutionT NeighborStructs::simpleExchangeR(
-	const AntiBandwidth::solutionT & labeling,
-	const std::vector<std::vector<short int>>& adjMatrix) {
+	AntiBandwidth::solutionT labeling,
+	const std::vector<std::vector<short int>>& adjMatrix,
+	std::mt19937& generator) {
 	
-	// TODO: 
-	return AntiBandwidth::solutionT();
+	int i, j;						
+	bool distinct = false;															// ensure different indexes are chosen
+	std::uniform_int_distribution<> integerDistribution(0, labeling.size() - 1);	// generate two indexes at random
+
+	i = integerDistribution(generator);
+	while (!distinct) {
+		
+		j = integerDistribution(generator);
+		if (i != j) distinct = true;
+	}
+
+	std::swap(labeling[i], labeling[j]);
+
+	return labeling;
 }
 
 AntiBandwidth::solutionT NeighborStructs::doubleExchangeR(
-	const AntiBandwidth::solutionT & labeling, 
-	const std::vector<std::vector<short int>>& adjMatrix) {
+	AntiBandwidth::solutionT labeling, 
+	const std::vector<std::vector<short int>>& adjMatrix,
+	std::mt19937& generator) {
 	
-	//TODO: 
-	return AntiBandwidth::solutionT();
+	int i1, j1, i2, j2;
+	bool distinct = false;															// ensure different indexes are chosen
+	std::uniform_int_distribution<> integerDistribution(0, labeling.size() - 1);	// generate two indexes at random
+
+	i1 = integerDistribution(generator);
+	while (!distinct) {
+
+		j1 = integerDistribution(generator);
+		if (i1 != j1) {
+			i2 = integerDistribution(generator);
+			while (!distinct) {
+				j2 = integerDistribution(generator);
+
+				if (j2 != i1 && j2 != j1) distinct = true;
+			}
+		}
+	}
+
+	std::swap(labeling[i1], labeling[j1]);
+	std::swap(labeling[i2], labeling[j2]);
+
+	return labeling;
 }
 
 AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchangeR(
-	const AntiBandwidth::solutionT & labeling, 
-	const std::vector<std::vector<short int>>& adjMatrix) {
+	AntiBandwidth::solutionT labeling, 
+	const std::vector<std::vector<short int>>& adjMatrix,
+	std::mt19937& generator) {
 	
-	//TODO:
-	return AntiBandwidth::solutionT();
+	std::uniform_int_distribution<> integerDistribution(0, labeling.size() - 1);
+	// in this case, generate a starting index, a movement direction and a number of swaps to movement side
+	bool dir = (integerDistribution(generator) > labeling.size() / 2);		// false-> right, true -> left
+	int index = integerDistribution(generator);
+	int n_swaps = (dir) ? 
+		((integerDistribution(generator)) % (index)) :
+		((integerDistribution(generator)) % (labeling.size() - index));
+
+	for (int i = 1; i < n_swaps; i++) {
+		if (dir) {	// left
+			std::swap(labeling[index], labeling[index - 1]);
+			index--;
+		}
+		else {		// right
+			std::swap(labeling[index], labeling[index + 1]);
+			index++;
+		}
+	}
+
+	return labeling;
 }
