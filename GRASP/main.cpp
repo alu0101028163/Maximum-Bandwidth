@@ -12,10 +12,11 @@ int main(){
     solutionElements.push_back(i);
   }
 
-  std::vector<int> labeling = Grasp::constructGreedyRandomizedSolution(graph,solutionElements);
+  std::vector<int> labeling = Grasp::grasp(graph,100,17);
 
   for(int i = 0; i < labeling.size(); i++){
     std::cout << labeling[i] << " ";
   }
     std::cout << "\n";
+    std::cout << "VALUE: " << AntiBandwidth::objectiveFunction(graph,labeling) << "\n";
 }

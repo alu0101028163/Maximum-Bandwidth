@@ -1,4 +1,5 @@
 #pragma once
+#include "../AntiBandwidth/AntiBandwidth.h"
 #include <vector>
 #include <list>
 #include <stdlib.h>
@@ -12,7 +13,29 @@ namespace Grasp{
 
     const float PERCENTAGE = 0.6;
 
+    std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue);
+    void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
+    void swap(int i, int j , std::vector<int>& label);
+    int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph);
+    void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
+
+    /**
+     * Wrapper function for the construction of a greedy randomized solution that initializes the data structures and recursive
+     * depth-first search algorithm.
+     * @param  graph            [description]
+     * @param  solutionElements [description]
+     * @return                  [description]
+     */
     std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
+
+    /**
+     * Recursive function that calls itself producing as result a depth-first search throught the graph, calculating in each iteration
+     * a label for each node it visits.
+     * @param actualNode
+     * @param graph
+     * @param remainingLabels
+     * @param labeling
+     */
     void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
 

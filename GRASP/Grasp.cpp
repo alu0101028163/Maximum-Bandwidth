@@ -5,23 +5,81 @@
 
 namespace Grasp{
 
-  //
-  // void grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
-  //   srand((int)time(0));
-  //
-  //
-  //   std::vector<int> solutionElements;
-  //   for(int i = 1; i <= graph.size(); i++)
-  //       solutionElements.push_back(i);
-  //
-  // }
+
+  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
+    srand((int)time(0));
 
 
+    std::vector<int> currentSolution;
+    for(int i = 1; i <= graph.size(); i++)
+        currentSolution.push_back(i);
+
+
+    int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
+
+    std::vector<int> bestSolution = currentSolution;
+    int bestSolutionValue = currentValue;
+
+
+    int i = 0;
+    while((i < maxIterations) && (currentValue < objectiveValue)){
+      currentSolution = constructGreedyRandomizedSolution(graph, currentSolution);
+      localSearch(currentSolution, graph);
+      updateSolution(bestSolutionValue, bestSolution, currentSolution, graph);
+      i++;
+    }
+
+    return bestSolution;
+
+  }
+
+
+  void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+      int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
+      if(currentValue  > bestSolutionValue){
+         bestSolution = currentSolution;
+         bestSolutionValue = currentValue;
+      }
+  }
+
+  void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+
+       int bestI = -1;
+       int bestJ = -1;
+       int bestValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
+
+       for(int i = 0; i < currentSolution.size(); i++){
+         for(int j = 0; j < currentSolution.size(); j++){
+           int actualValue;
+           if((actualValue = evaluateMovement(i,j,currentSolution,graph)) > bestValue){
+             bestI = i;
+             bestJ = j;
+             bestValue = actualValue;
+           }
+         }
+       }
+
+       if((bestI != -1) && (bestJ != -1)){
+         swap(bestI,bestJ,currentSolution);
+       }
+
+  }
+
+
+  void swap(int i, int j , std::vector<int>& label){
+    int temp = label[i];
+    label[i] = label[j];
+    label[j] = temp;
+  }
+
+  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph){
+    swap(i,j,label);
+    return AntiBandwidth::objectiveFunction(graph,label);
+  }
 
 
   std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
-        srand((int)time(0));
-        // std::vector<short int> visitedNodes;
+
         std::list<int> remainingLabels;
         std::copy(solutionElements.begin(), solutionElements.end(), std::back_inserter(remainingLabels));
         std::vector<int> labeling(graph.size());
@@ -37,11 +95,18 @@ namespace Grasp{
 
   }
 
-
+  /*
+    TODO: The statement if(remainingLabels.size() <= 0) break; is saving the program
+    of a segmentation fault, but i think it shouldn't be necessary because of the (!isVisited(j, labeling) condition.
+    Track the problem down.
+   */
   void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
        for(int i = actualNode; i < graph.size(); i++){
          for(int j = 0; j < graph.size(); j++){
            if((graph[i][j] == 1) && (!isVisited(j, labeling))){
+
+               if(remainingLabels.size() <= 0) break;
+
                labeling[j] = calculateLabel(i,remainingLabels,labeling);
                constructSolution(j,graph,remainingLabels,labeling);
            }
@@ -90,8 +155,12 @@ namespace Grasp{
     return differences;
   }
 
+  /* TODO: Here I'm getting a segmentation fault because the differences vector is empty,
+          I'm guessing returning 0 will solve the problem but this needs check out */
   int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
     std::vector<int> differences = calculateDifferences(parentNode, remainingLabels, labeling);
+    // if(differences.size() == 0) return 0;
+
     return *std::max_element(std::begin(differences), std::end(differences));
   }
 
