@@ -8,7 +8,6 @@ namespace Grasp{
   float PERCENTAGE = 0.5;
 
   std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
-    std::cout << "PERCENTAGE IS: " << PERCENTAGE << "\n";
     srand((int)time(0));
 
 
@@ -193,7 +192,7 @@ namespace Grasp{
       std::advance(it, nLabel);
       return *it;
   }
-  
+
   void setPercentage(float percentage){
     PERCENTAGE = percentage;
   }
