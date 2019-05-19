@@ -1,7 +1,4 @@
-﻿// GraphGenerator.cpp: define el punto de entrada de la aplicación.
-//
-
-#include "GraphGenerator.h"
+﻿#include "GraphGenerator.h"
 
 using namespace std;
 using namespace GraphGen;
@@ -103,27 +100,40 @@ std::vector<std::vector<short int> > GraphGen::denseFileToGraph(std::string file
 	return adjacencyMatrix_;
 }
 
-std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(std::string fileName){
+std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(bool ignorefirst, const std::string& fileName){
+	
 	std::vector < std::vector <short int > > adjacencyMatrix_;
-	std::ifstream infile(fileName);
+	std::ifstream infile;
+	infile.exceptions(std::ifstream::badbit);
+	infile.open(fileName);
+
+	if (!infile.good())
+		throw std::ifstream::failure("Error trying to read graph file!");
+
+	// Ignore first line when specified (for files with results)
+	if (ignorefirst) 
+		infile.ignore(std::numeric_limits<int>::max(), infile.widen('\n'));
+	
 	int nCols, nRows, nArcs;
 	infile >> nCols >> nRows >> nArcs;
 
-	assert(nCols == nRows);
+	if (nCols != nRows)
+		throw std::logic_error("Graph must be represented as a squared matrix");
 
 	// Matrix initialization:
- 	for(int i = 0; i < nRows; i++){
-			adjacencyMatrix_.push_back(std::vector<short int>(nCols));
+	for (int i = 0; i < nRows; i++) {
+		adjacencyMatrix_.push_back(std::vector<short int>(nCols));
 	}
 
 	// While end of file is not reached fill matrix with
 	// connections between adjacent vertices.
-	while(!infile.eof()){
-			int node, neighbour;
-			infile >> node >> neighbour;
-			adjacencyMatrix_[node - 1][neighbour - 1] = 1;
+	while (!infile.eof()) {
+		int node, neighbour;
+		infile >> node >> neighbour;
+		adjacencyMatrix_[node - 1][neighbour - 1] = 1;
 	}
 
 	infile.close();
+	
 	return adjacencyMatrix_;
 }
