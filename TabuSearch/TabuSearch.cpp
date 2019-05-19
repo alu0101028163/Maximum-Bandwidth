@@ -21,7 +21,8 @@ namespace TabuSearch{
 
     while((iteration < maxIterations) && (bestValue < objectiveValue)){
 
-
+    // MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
+    // std::cout << "\n";
     // -------------------------------------------------------------------------
     //                            LOCAL SEARCH
     // -------------------------------------------------------------------------
@@ -29,38 +30,52 @@ namespace TabuSearch{
     // We evaluate all k = 2 swapping combinations and their profit.
     // The solution are two indexes, corresponding to the two nodes that will be swapped.
 
-    int bestLocalI = -1;
-    int bestLocalJ = -1;
-    int bestLocalValue = -9999;
-    int bestLocalFrequency = recencyFrequencyMatrix[1][0];
+    int bestLocalI = 0;
+    int bestLocalJ = 1;
+    int bestLocalValue = evaluateMovement(0,1,currentSolution,graph);
+    float bestLocalRatio = ((bestLocalValue + 1) / (recencyFrequencyMatrix[1][0] + 1));
+    // int bestLocalFrequency = recencyFrequencyMatrix[1][0];
 
     for(int i = 0; i < graph.size(); i++){
       for(int j = i + 1 ; j < graph[i].size(); j++){
-        int actualLocalValue;
-        int actualFrequency = recencyFrequencyMatrix[j][i];
+        int actualLocalValue = evaluateMovement(i,j,currentSolution,graph);
+        // int actualFrequency = recencyFrequencyMatrix[j][i];
+        int actualRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
 
-        if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualFrequency < bestLocalFrequency)){
+        if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualRatio < bestLocalRatio)){
+          std::cout << "Here\n";
           bestLocalValue = actualLocalValue;
           bestLocalI = i;
           bestLocalJ = j;
-          bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          // bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
 
-        }else if(actualFrequency < bestLocalFrequency){
-            bestLocalValue = actualLocalValue;
-            bestLocalI = i;
-            bestLocalJ = j;
-            bestLocalFrequency = recencyFrequencyMatrix[j][i];
-        }else if (actualFrequency == bestLocalFrequency){
-          if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
-            bestLocalValue = actualLocalValue;
-            bestLocalI = i;
-            bestLocalJ = j;
-            bestLocalFrequency = recencyFrequencyMatrix[j][i];
-          }
+        }else if ((!isTabu(recencyFrequencyMatrix,i,j)) && (actualRatio > bestLocalRatio)){
+          bestLocalValue = actualLocalValue;
+          bestLocalI = i;
+          bestLocalJ = j;
+          // bestLocalFrequency = recencyFrequencyMatrix[j][i];
+          bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
         }
+
+        // }else if(actualFrequency < bestLocalFrequency){
+        //     bestLocalValue = actualLocalValue;
+        //     bestLocalI = i;
+        //     bestLocalJ = j;
+        //     bestLocalFrequency = recencyFrequencyMatrix[j][i];
+        // }else if (actualFrequency == bestLocalFrequency){
+        //   if(((actualLocalValue = evaluateMovement(i,j,currentSolution,graph)) >= bestLocalValue)){
+        //     bestLocalValue = actualLocalValue;
+        //     bestLocalI = i;
+        //     bestLocalJ = j;
+        //     bestLocalFrequency = recencyFrequencyMatrix[j][i];
+        //   }
+        // }
       }
     }
 
+
+    // std::cout << "BEST LOCAL VALUE: " << bestLocalValue << "\n";
     // Now we've the best local solution ( it can be worst than the previous solution )
     // and it becomes the currentSolution.
     // If the value obtained is better than the best solution at the momment we update the

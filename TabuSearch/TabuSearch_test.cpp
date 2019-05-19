@@ -136,10 +136,10 @@ TEST_CASE("Evaluate movement works properly"){
 }
 
 
-TEST_CASE("Tabu search works properly"){
+TEST_CASE("Tabu search solves bcspwr01"){
     std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
     std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
-    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,3000,19);
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,17);
 
     for(int i = 0; i < bestSolution.size(); i++){
       for(int j = i + 1; j < bestSolution.size(); j++){
@@ -147,6 +147,117 @@ TEST_CASE("Tabu search works properly"){
       }
     }
 
-    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) == 19);
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 17);
+}
 
+TEST_CASE("Tabu search solves bcspwr02"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr02.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,21);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 21);
+}
+
+TEST_CASE("Tabu search solves ibm32"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/ibm32.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,9);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 9);
+}
+
+TEST_CASE("Tabu search solves pores_1"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/pores_1.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,6);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 6);
+}
+
+TEST_CASE("Tabu search solves curtis54"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/curtis54.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,12);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 12);
+}
+
+TEST_CASE("Tabu search solves will57"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/will57.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,13);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 13);
+}
+
+TEST_CASE("Tabu search solves bcsstk01"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcsstk01.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,8);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 8);
+}
+
+TEST_CASE("Tabu search solves dwt__234"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/dwt__234.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,51);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 51);
+}
+
+TEST_CASE("Tabu search solves ash85"){
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/ash85.mtx.rnd");
+    std::vector<int> randomSolution = TabuSearch::generateRandomSolution(graph.size());
+    std::vector<int> bestSolution = TabuSearch::tabuSearch(randomSolution,graph,10000,22);
+
+    for(int i = 0; i < bestSolution.size(); i++){
+      for(int j = i + 1; j < bestSolution.size(); j++){
+        REQUIRE(bestSolution[i] != bestSolution[j]);
+      }
+    }
+
+    REQUIRE(AntiBandwidth::objectiveFunction(graph,bestSolution) >= 22);
 }
