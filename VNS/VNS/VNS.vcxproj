@@ -137,7 +137,7 @@
       <Project>{03fcda25-05c9-4d34-a919-da3cadd02f7c}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DeterministAlgoritmLib\DeterministAlgoritmLib.vcxproj">
-      <Project>{0f8a434c-33e5-44c9-b552-a45c1c0052c2}</Project>
+      <Project>{a6d75534-6e30-4361-aa42-03040c4e5a0c}</Project>
     </ProjectReference>
     <ProjectReference Include="..\GraphGeneratorLib\GraphGeneratorLib.vcxproj">
       <Project>{64bdd558-7078-4c08-9f78-9ffcdb1d4cf2}</Project>
