@@ -18,9 +18,6 @@
     <ClCompile Include="Source.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="neighborhood.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="vns.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -31,9 +28,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="neighborhood.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="vns.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>

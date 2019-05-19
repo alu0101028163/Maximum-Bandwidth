@@ -98,7 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>C:\Users\Fernando\Documents\GitHub\ABM_DAA\DeterministAlgorithm;C:\Users\Fernando\Documents\GitHub\ABM_DAA\GraphGenerator;C:\Users\Fernando\Documents\GitHub\ABM_DAA\AntiBandwidth</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Fernando\Documents\GitHub\ABM_DAA\NeighborhoodStructs;C:\Users\Fernando\Documents\GitHub\ABM_DAA\DeterministAlgorithm;C:\Users\Fernando\Documents\GitHub\ABM_DAA\GraphGenerator;C:\Users\Fernando\Documents\GitHub\ABM_DAA\AntiBandwidth</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,12 +121,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="neighborhood.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="vns.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="neighborhood.h" />
     <ClInclude Include="vns.h" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +139,9 @@
     </ProjectReference>
     <ProjectReference Include="..\GraphGeneratorLib\GraphGeneratorLib.vcxproj">
       <Project>{64bdd558-7078-4c08-9f78-9ffcdb1d4cf2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\NeighborhoodLib\NeighborhoodLib.vcxproj">
+      <Project>{76a4885a-8a46-434a-8cb6-7fbc35415bf9}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
