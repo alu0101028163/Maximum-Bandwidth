@@ -5,8 +5,10 @@
 
 namespace Grasp{
 
+  float PERCENTAGE = 0.5;
 
   std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
+    std::cout << "PERCENTAGE IS: " << PERCENTAGE << "\n";
     srand((int)time(0));
 
 
@@ -101,12 +103,14 @@ namespace Grasp{
     Track the problem down.
    */
   void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
+
+      // std::cout << "ACTUAL NODE: " << actualNode << "\n";
+
        for(int i = actualNode; i < graph.size(); i++){
+         // std::cout << "ACTUAL NODE: " << i << "\n";
          for(int j = 0; j < graph.size(); j++){
            if((graph[i][j] == 1) && (!isVisited(j, labeling))){
-
-               if(remainingLabels.size() <= 0) break;
-
+              // std::cout << "ACTUAL j: " << j << "\n";
                labeling[j] = calculateLabel(i,remainingLabels,labeling);
                constructSolution(j,graph,remainingLabels,labeling);
            }
@@ -156,7 +160,7 @@ namespace Grasp{
   }
 
   /* TODO: Here I'm getting a segmentation fault because the differences vector is empty,
-          I'm guessing returning 0 will solve the problem but this needs check out */
+           I'm guessing returning 0 will solve the problem but this needs check out */
   int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
     std::vector<int> differences = calculateDifferences(parentNode, remainingLabels, labeling);
     // if(differences.size() == 0) return 0;
@@ -189,7 +193,10 @@ namespace Grasp{
       std::advance(it, nLabel);
       return *it;
   }
-
+  
+  void setPercentage(float percentage){
+    PERCENTAGE = percentage;
+  }
 
 
 
