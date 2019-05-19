@@ -55,5 +55,7 @@ namespace GraphGen {
 	 * @param fileName
 	 */
 	std::vector<std::vector<short int> > denseFileToGraph(std::string fileName);
-	std::vector<std::vector<short int> > disperseFileToGraph(std::string fileName);
+
+	std::vector<std::vector<short int> > disperseFileToGraph(const std::string& fileName);
+	std::vector<std::vector<short int> > disperseFileToGraph(bool ignorefirst, const std::string& fileName);
 }

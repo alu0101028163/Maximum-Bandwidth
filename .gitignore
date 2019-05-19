@@ -5,6 +5,7 @@ instances
 # vs generated files
 VNS/.vs/
 .vs/
+VNS/DeterministAlgorithmLib
 VNS/AntiBandwidthLib/
 VNS/CatchLib/
 VNS/GraphGeneratorLib/
