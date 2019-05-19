@@ -9,8 +9,8 @@
 namespace AntiBandwidth {
 
 
-  typedef std::vector<int> solutionT; // If any modification was to be made to the datatype, 
-									   // change would be easy and clean
+  typedef std::vector<int> solutionT; // If any modification was to be made to the datatype,
+									                    // change would be easy and clean
 
   /**
    * It's the objective function of the AntiBandwidth maximization problem which seeks

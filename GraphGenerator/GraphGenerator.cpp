@@ -122,6 +122,7 @@ std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(std::string f
 			int node, neighbour;
 			infile >> node >> neighbour;
 			adjacencyMatrix_[node - 1][neighbour - 1] = 1;
+			adjacencyMatrix_[neighbour - 1][node - 1] = 1;
 	}
 
 	infile.close();
