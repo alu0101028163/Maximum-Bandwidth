@@ -15,7 +15,7 @@ int main(){
   graspCalculations << "alpha,n_iterations,n_reps,labeling,value\n";
 
   float percentage = 0.05;
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("..Literature_Instances/Hardwell-Boeing Graphs/bcspwr01.mtx.rnd");
   std::vector<int> solutionElements;
 
   for(int i = 1; i <= graph.size(); i++){
