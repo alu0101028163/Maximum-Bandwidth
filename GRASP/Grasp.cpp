@@ -8,7 +8,7 @@ namespace Grasp{
   float PERCENTAGE = 0.5;
 
   std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
-    srand((int)time(0));
+    srand((int)std::time(0));
 
 
     std::vector<int> currentSolution;

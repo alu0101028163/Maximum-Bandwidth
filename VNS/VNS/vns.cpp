@@ -1,44 +1,33 @@
 #include "vns.h"
 
-AntiBandwidth::solutionT VNS::VND(
-	AntiBandwidth::solutionT init_solution, 
-	const std::vector<std::vector<short int>>& adjMatrix) {
-	
-	std::vector<NeighborStructs::detNeighStructFunction> nstructs = {
-			NeighborStructs::simpleExchange,
-			NeighborStructs::doubleExchange,
-			NeighborStructs::cyclicAdjExchange
-	};
+AntiBandwidth::solutionT VNS::VND_LS(AntiBandwidth::solutionT sol, const std::vector<std::vector<short int>>& adjMatrix,
+	const std::vector<NeighborStructs::detNeighStructFunction>& n_structs) {
 
-	AntiBandwidth::solutionT bestSol, compSol;
-	int k;	// Neighboring function index
+	int k = 0;
+	AntiBandwidth::solutionT compSol;
 
 	do {
-		bestSol = init_solution;
-		k = 0;
+		compSol = n_structs[k](sol, adjMatrix);
 
-		do {
-			compSol = nstructs[k](init_solution, adjMatrix);
-			
-			if (compSol != init_solution) {		
-				init_solution = compSol;
-				k = 0;
-			}
-			else {			// No better solutions found
-				k++;
-			}
-		
-		} while (k < nstructs.size());
+		if (compSol != sol) {
+			sol = compSol;
+			k = 0;
+		}
+		else {			// No better solutions found
+			std::cout << "Next struct: " << k + 1 << std::endl;
+			k++;
+		}
+	} while (k < n_structs.size());
 
-		// if equal, gets out of the loop too
-	} while (AntiBandwidth::objectiveFunction(adjMatrix, bestSol) > AntiBandwidth::objectiveFunction(adjMatrix, init_solution));
-
-	return init_solution;
+	return sol;
 }
 
-AntiBandwidth::solutionT VNS::BVNS(
-	AntiBandwidth::solutionT init_solution,
-	const std::vector<std::vector<short int>>& adjMatrix) {
+AntiBandwidth::solutionT VNS::VND(const std::vector<std::vector<short int>>& adjMatrix) {
+
+	return AntiBandwidth::solutionT();
+}
+
+AntiBandwidth::solutionT VNS::BVNS(const std::vector<std::vector<short int>>& adjMatrix) {
 	
 	return AntiBandwidth::solutionT();
 }
