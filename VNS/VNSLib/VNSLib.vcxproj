@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Fernando\Documents\GitHub\ABM_DAA\NeighborhoodStructs;C:\Users\Fernando\Documents\GitHub\ABM_DAA\AntiBandwidth;C:\Users\Fernando\Documents\GitHub\ABM_DAA\GraphGenerator;C:\Users\Fernando\Documents\GitHub\ABM_DAA\DeterministAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Fernando\Documents\GitHub\ABM_DAA\GRASP;C:\Users\Fernando\Documents\GitHub\ABM_DAA\NeighborhoodStructs;C:\Users\Fernando\Documents\GitHub\ABM_DAA\AntiBandwidth;C:\Users\Fernando\Documents\GitHub\ABM_DAA\GraphGenerator;C:\Users\Fernando\Documents\GitHub\ABM_DAA\DeterministAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,6 +160,9 @@
     </ProjectReference>
     <ProjectReference Include="..\GraphGeneratorLib\GraphGeneratorLib.vcxproj">
       <Project>{64bdd558-7078-4c08-9f78-9ffcdb1d4cf2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GRAPSLib\GRAPSLib.vcxproj">
+      <Project>{0ddf4cf6-e270-4473-9b40-354194135e85}</Project>
     </ProjectReference>
     <ProjectReference Include="..\NeighborhoodStructsLib\NeighborhoodStructsLib.vcxproj">
       <Project>{74b1e5b8-565e-4831-abff-d3c443fc74ab}</Project>

@@ -15,14 +15,16 @@ namespace Grasp{
     extern float PERCENTAGE;
 
     void setPercentage(float percentage);
-    std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, bool eager);
-    bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
+
+    std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, bool eager);
+    bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
     void swap(int i, int j , std::vector<int>& label);
-    int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph);
-    void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
-    void simpleExchange(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
-    void doubleExchange(std::vector<int>&  currentSolution, std::vector<std::vector<short int>>& graph);
-    void cyclicAdjExchange(std::vector<int>& currentSolution, std::vector<std::vector<short int>>& graph);
+    int evaluateMovement(int i, int j , std::vector<int> label, const std::vector< std::vector<short int> >& graph);
+    void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
+    void simpleExchange(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
+    void doubleExchange(std::vector<int>&  currentSolution, const std::vector<std::vector<short int>>& graph);
+    void cyclicAdjExchange(std::vector<int>& currentSolution, const std::vector<std::vector<short int>>& graph);
+
     /**
      * Wrapper function for the construction of a greedy randomized solution that initializes the data structures and recursive
      * depth-first search algorithm.
@@ -30,7 +32,7 @@ namespace Grasp{
      * @param  solutionElements [description]
      * @return                  [description]
      */
-    std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
+    std::vector<int> constructGreedyRandomizedSolution(const std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements);
 
     /**
      * Recursive function that calls itself producing as result a depth-first search throught the graph, calculating in each iteration
@@ -40,7 +42,7 @@ namespace Grasp{
      * @param remainingLabels
      * @param labeling
      */
-    void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
+    void constructSolution(int actualNode, const std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling);
 
 
     /**

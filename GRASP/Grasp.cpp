@@ -8,7 +8,7 @@ namespace Grasp{
   float PERCENTAGE = 0.5;
   int mode = 1;
 
-  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, bool eager){
+  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
     srand((int)std::time(0));
 
 
@@ -39,7 +39,7 @@ namespace Grasp{
   }
 
 
-  bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
       std::cout << "CURRENT SOLUTION: " << currentValue << "\n";
       std::cout << "BEST SOLUTION: " << bestSolutionValue << "\n";
@@ -51,7 +51,7 @@ namespace Grasp{
          return false;
   }
 
-  void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
 
     if(mode == 0)
     simpleExchange(currentSolution,graph);
@@ -61,7 +61,7 @@ namespace Grasp{
 
   }
 
-  void doubleExchange(std::vector<int>&  currentSolution, std::vector<std::vector<short int>>& graph) {
+  void doubleExchange(std::vector<int>&  currentSolution, const std::vector<std::vector<short int>>& graph) {
 
     int nextObjFunction;
     int oldObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
@@ -118,7 +118,7 @@ namespace Grasp{
 
   }
 
-  void cyclicAdjExchange(std::vector<int>& currentSolution,std::vector<std::vector<short int>>& graph) {
+  void cyclicAdjExchange(std::vector<int>& currentSolution,const std::vector<std::vector<short int>>& graph) {
 
   	std::vector<int> currentSolutioncpy = currentSolution;
   	int nextObjFunction;
@@ -154,13 +154,13 @@ namespace Grasp{
     label[j] = temp;
   }
 
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph){
+  int evaluateMovement(int i, int j , std::vector<int> label, const std::vector< std::vector<short int> >& graph){
     swap(i,j,label);
     return AntiBandwidth::objectiveFunction(graph,label);
   }
 
 
-  std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
+  std::vector<int> constructGreedyRandomizedSolution(const std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
 
         std::list<int> remainingLabels;
         std::copy(solutionElements.begin(), solutionElements.end(), std::back_inserter(remainingLabels));
@@ -177,9 +177,7 @@ namespace Grasp{
 
   }
 
-
-  void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
-
+  void constructSolution(int actualNode, const std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
          for(int j = 0; j < graph.size(); j++){
            if((graph[actualNode][j] == 1) && (!isVisited(j, labeling))){
