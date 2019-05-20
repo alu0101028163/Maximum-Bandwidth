@@ -2,6 +2,9 @@
 
 namespace TabuSearch{
 
+  const int intensificationCoefficient = 10;
+  const int diversificationCoefficient = 3;
+
   std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue){
 
       // Evaluating the initial solution we get the best objective function value for our problem.
@@ -17,12 +20,17 @@ namespace TabuSearch{
       // recency of movements in the superior diagonal.
       std::vector<std::vector<int> > recencyFrequencyMatrix = TabuSearch::initializeDataStructure(graph.size());
 
-      int iteration = 0;
+      int iteration = 10;
+
+      bool intensification = false;
+      int noImprovementCounter = 0;
+      int intensificationCounter = 0;
+
 
       while((iteration < maxIterations) && (bestValue < objectiveValue)){
 
-      // MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
-      // std::cout << "\n";
+      MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
+      std::cout << "\n";
       // -------------------------------------------------------------------------
       //                            LOCAL SEARCH
       // -------------------------------------------------------------------------
@@ -30,31 +38,68 @@ namespace TabuSearch{
       // We evaluate all k = 2 swapping combinations and their profit.
       // The solution are two indexes, corresponding to the two nodes that will be swapped.
 
-      int bestLocalI = 0;
-      int bestLocalJ = 1;
-      int bestLocalValue = evaluateMovement(0,1,currentSolution,graph);
-      float bestLocalRatio = ((bestLocalValue + 1) / (recencyFrequencyMatrix[1][0] + 1));
+      int bestLocalI = -1;
+      int bestLocalJ = -1;
+      int bestLocalValue = -1;
+      float bestLocalRatio = -1;
 
       for(int i = 0; i < graph.size(); i++){
         for(int j = i + 1 ; j < graph[i].size(); j++){
           int actualLocalValue = evaluateMovement(i,j,currentSolution,graph);
           int actualRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
 
-          if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualRatio < bestLocalRatio)){
-            bestLocalValue = actualLocalValue;
-            bestLocalI = i;
-            bestLocalJ = j;
-            bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
+          if(intensification){
+            if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue) && (actualRatio > bestLocalRatio)){
+              bestLocalValue = actualLocalValue;
+              bestLocalI = i;
+              bestLocalJ = j;
+              bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
 
-          }else if ((!isTabu(recencyFrequencyMatrix,i,j)) && (actualRatio > bestLocalRatio)){
-            bestLocalValue = actualLocalValue;
-            bestLocalI = i;
-            bestLocalJ = j;
-            bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
+            }else if ((!isTabu(recencyFrequencyMatrix,i,j)) && (actualRatio > bestLocalRatio)){
+              bestLocalValue = actualLocalValue;
+              bestLocalI = i;
+              bestLocalJ = j;
+              bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
+            }
+          }else{
+            if((isTabu(recencyFrequencyMatrix,i,j)) && (actualLocalValue > bestValue)){
+              bestLocalValue = actualLocalValue;
+              bestLocalI = i;
+              bestLocalJ = j;
+              bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
+
+            }else if (!isTabu(recencyFrequencyMatrix,i,j) && (actualLocalValue > bestLocalValue)){
+              bestLocalValue = actualLocalValue;
+              bestLocalI = i;
+              bestLocalJ = j;
+              bestLocalRatio = ((actualLocalValue + 1) / (recencyFrequencyMatrix[j][i] + 1));
+            }
           }
+
+
 
         }
       }
+
+    /* No ha mejorado la solución */
+    if(bestLocalValue <= bestValue){
+      if(!intensification){
+         noImprovementCounter += 1;
+      }else intensificationCounter += 1;
+    }
+
+
+    if(!intensification){
+      if(noImprovementCounter == diversificationCoefficient){
+         noImprovementCounter = 0;
+         intensification = true;
+      }
+    }else{
+      if(intensificationCounter == intensificationCoefficient){
+        intensificationCounter = 0;
+        intensification = false;
+      }
+    }
 
     // Now we've the best local solution ( it can be worst than the previous solution )
     // and it becomes the currentSolution.
@@ -66,7 +111,7 @@ namespace TabuSearch{
     // We update the tabu values of the recencyFrequencyMatrix
     updateRecFreqMatrix(recencyFrequencyMatrix);
     // And now we set the actual movement as tabu movement
-    addTabu(recencyFrequencyMatrix, 3, bestLocalI, bestLocalJ);
+    addTabu(recencyFrequencyMatrix,3, bestLocalI, bestLocalJ);
 
     iteration += 1;
   }
