@@ -1,6 +1,7 @@
 #include "../GRASP/Grasp.h"
 #include "../GraphGenerator/GraphGenerator.h"
 #include "../AntiBandwidth/AntiBandwidth.h"
+#include <stdlib.h>
 
 int main(int argc, char *argv[]){
 
@@ -11,16 +12,20 @@ int main(int argc, char *argv[]){
       exit(1);
     }
 
+
     const int N_REPETITIONS = 100;
 
-    std::string instancePath = std::string(argv[2])
+    std::string instancePath = std::string(argv[1]);
+    std::string instanceName = std::string(argv[2]);
+    int bestValue = atoi(argv[3]);
+
     std::ofstream graspCalculations;
-    std::string fichName = std::string("graspCalculations_" + instancePath+ ".csv");
+    std::string fichName = std::string("graspCalculations_" + instanceName + ".csv");
     graspCalculations.open(fichName);
     graspCalculations << "alpha,n_local_searchs,n_reps,labeling,value\n";
 
     float percentage = 0.05;
-    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
+    std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../" + instancePath);
     std::vector<int> solutionElements;
 
     for(int i = 1; i <= graph.size(); i++){
@@ -35,7 +40,7 @@ int main(int argc, char *argv[]){
       Grasp::setPercentage(percentage);
       for(int i = 0; i < iterations.size() ; i++){
         for(int repetition = 0; repetition < N_REPETITIONS; repetition++){
-          std::vector<int> labeling = Grasp::grasp(graph,iterations[i],17);
+          std::vector<int> labeling = Grasp::grasp(graph,iterations[i],bestValue, true);
           graspCalculations << percentage << ",";
           graspCalculations << iterations[i] << ",";
           graspCalculations << N_REPETITIONS << ",";

@@ -7,7 +7,7 @@ namespace Grasp{
 
   float PERCENTAGE = 0.5;
 
-  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
+  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
     srand((int)std::time(0));
 
 
@@ -26,7 +26,10 @@ namespace Grasp{
     while((i < maxIterations) && (currentValue < objectiveValue)){
       currentSolution = constructGreedyRandomizedSolution(graph, currentSolution);
       localSearch(currentSolution, graph);
-      updateSolution(bestSolutionValue, bestSolution, currentSolution, graph);
+      bool isBetter = updateSolution(bestSolutionValue, bestSolution, currentSolution, graph);
+      if(isBetter && eager){
+         return bestSolution;
+      }
       i++;
     }
 
@@ -35,12 +38,14 @@ namespace Grasp{
   }
 
 
-  void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
       if(currentValue  > bestSolutionValue){
          bestSolution = currentSolution;
          bestSolutionValue = currentValue;
+         return true;
       }
+         return false;
   }
 
   void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
@@ -96,25 +101,16 @@ namespace Grasp{
 
   }
 
-  /*
-    TODO: The statement if(remainingLabels.size() <= 0) break; is saving the program
-    of a segmentation fault, but i think it shouldn't be necessary because of the (!isVisited(j, labeling) condition.
-    Track the problem down.
-   */
+
   void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
-      // std::cout << "ACTUAL NODE: " << actualNode << "\n";
 
-       for(int i = actualNode; i < graph.size(); i++){
-         // std::cout << "ACTUAL NODE: " << i << "\n";
          for(int j = 0; j < graph.size(); j++){
-           if((graph[i][j] == 1) && (!isVisited(j, labeling))){
-              // std::cout << "ACTUAL j: " << j << "\n";
-               labeling[j] = calculateLabel(i,remainingLabels,labeling);
+           if((graph[actualNode][j] == 1) && (!isVisited(j, labeling))){
+               labeling[j] = calculateLabel(actualNode,remainingLabels,labeling);
                constructSolution(j,graph,remainingLabels,labeling);
            }
          }
-       }
   }
 
 
@@ -158,11 +154,9 @@ namespace Grasp{
     return differences;
   }
 
-  /* TODO: Here I'm getting a segmentation fault because the differences vector is empty,
-           I'm guessing returning 0 will solve the problem but this needs check out */
+
   int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
     std::vector<int> differences = calculateDifferences(parentNode, remainingLabels, labeling);
-    // if(differences.size() == 0) return 0;
 
     return *std::max_element(std::begin(differences), std::end(differences));
   }
