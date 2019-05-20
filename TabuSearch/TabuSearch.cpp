@@ -138,7 +138,7 @@ namespace TabuSearch{
     }
   }
 
-  bool isTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int i, int j){
+  bool isTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int i, int j){
     return (recencyFrequencyMatrix[i][j] > 0);
   }
 
@@ -175,7 +175,7 @@ namespace TabuSearch{
     label[j] = temp;
   }
 
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> > graph){
+  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph){
     swap(i,j,label);
     return AntiBandwidth::objectiveFunction(graph,label);
   }

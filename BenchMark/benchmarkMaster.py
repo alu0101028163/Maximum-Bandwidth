@@ -1,8 +1,8 @@
 import os
 import re
 
-paths = {}
-paths["Literature_Instances/hb/bcspwr01.mtx.rnd"] = 17
+paths = []
+paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd")
 # paths["Literature_Instances/Grid_Graphs/mesh9_9.txt"] = 36
 
 
@@ -13,15 +13,14 @@ def benchGrasp():
 
     os.system(grasp_command)
 
-    for key in paths:
+    for path in paths:
 
-        instance_path = key
+        instance_path = "../" + path
         instance_name_regex = re.compile("\/(\w+)\.")
-        instance_name = instance_name_regex.search(key)
+        instance_name = instance_name_regex.search(path)
         instance_name = instance_name.group(1)
-        instance_value = paths[key]
 
-        grasp_command = "./Grasp_Benchmark " + instance_path + " " + instance_name + " " + str(instance_value)
+        grasp_command = "./Grasp_Benchmark " + instance_path + " " + instance_name
 
         if (os.system(grasp_command) != 0):
             print("Error trying to test " + instance_path )

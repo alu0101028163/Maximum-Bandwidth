@@ -22,7 +22,7 @@ namespace TabuSearch{
    * @param  j
    * @return
    */
-  bool isTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int i, int j);
+  bool isTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int i, int j);
 
   /**
    * Updates the state of the Recency-Frequency matrix decrementing the tabu time
@@ -64,7 +64,7 @@ namespace TabuSearch{
    * @param  graph
    * @return the value of the ObjectiveFunction obtained if you swap i and j.
    */
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> > graph);
+  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph);
 
   /**
    * Checks if the current solution is better than the best solution, updating the best solution

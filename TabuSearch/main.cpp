@@ -14,6 +14,6 @@ int main(){
 
   std::cout << "VALUE OBTAINED: " << AntiBandwidth::objectiveFunction(graph,labeling) << "\n";
 
-  TabuSearch::tabuSearch(labeling,graph, 100, 17);
+  TabuSearch::tabuSearch(labeling,graph, 100);
 
 }
