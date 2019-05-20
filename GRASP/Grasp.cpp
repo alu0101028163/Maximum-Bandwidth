@@ -162,7 +162,7 @@ namespace Grasp{
            I'm guessing returning 0 will solve the problem but this needs check out */
   int calculateCardinality(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
     std::vector<int> differences = calculateDifferences(parentNode, remainingLabels, labeling);
-    // if(differences.size() == 0) return 0;
+    if(differences.empty()) return 0;
 
     return *std::max_element(std::begin(differences), std::end(differences));
   }

@@ -17,13 +17,18 @@ int main() {
 
 		// Exchange for random labeling generator / GRASP
 		Grasp::setPercentage(0.6);
-		AntiBandwidth::solutionT labels = Grasp::grasp(adjMatrix, 100, 17);
-		
+		AntiBandwidth::solutionT labels = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max());
+	
+
+		labels = VNS::GVNS(adjMatrix, rd);
+		VNS::traceSolution(labels, adjMatrix);
+		/*
 		for (int i = 0; i < 10; i++) {
-			labels = NeighborStructs::cyclicAdjExchangeR(labels, adjMatrix, generator);
+			labels = NeighborStructs::quintupleExchangeR(labels, adjMatrix, generator);
 			//std::cout << "Finished VND" << std::endl;
 			VNS::traceSolution(labels, adjMatrix);
 		}
+		*/
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;

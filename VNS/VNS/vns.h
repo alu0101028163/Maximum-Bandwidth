@@ -37,7 +37,7 @@ namespace VNS {
 	//											   GVNS
 	// -------------------------------------------------------------------------------------------------
 
-	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix);
+	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix, std::random_device& rd);
 
 	// -------------------------------------------------------------------------------------------------
 	//										   AUX METHODS
