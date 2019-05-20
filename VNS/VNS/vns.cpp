@@ -25,18 +25,37 @@ AntiBandwidth::solutionT VNS::VND_LS(AntiBandwidth::solutionT sol, const std::ve
 AntiBandwidth::solutionT VNS::VND(const std::vector<std::vector<short int>>& adjMatrix) {
 
 	int non_improved_it = 0;
-	AntiBandwidth::solutionT labeling;
+	AntiBandwidth::solutionT bestlabeling = Grasp::grasp(adjMatrix, 100, 17);
+	AntiBandwidth::solutionT nextlabeling;
+
+	std::vector<NeighborStructs::detNeighStructFunction> nstructs = {
+			NeighborStructs::simpleExchange,
+			NeighborStructs::doubleExchange,
+			NeighborStructs::cyclicAdjExchange
+	};
 
 	while (non_improved_it < 10) {
-		labeling = Grasp::grasp(adjMatrix, 100, 17);
 
+		nextlabeling = Grasp::grasp(adjMatrix, 100, 17);
+		nextlabeling = VND_LS(nextlabeling, adjMatrix, nstructs);
+
+		if (AntiBandwidth::objectiveFunction(adjMatrix, bestlabeling) <			// optimize
+				AntiBandwidth::objectiveFunction(adjMatrix, nextlabeling)) {
+			bestlabeling = nextlabeling;
+			non_improved_it = 0;
+		}
+		else {
+			non_improved_it++;
+		}
 	}
 
-	return AntiBandwidth::solutionT();
+	return bestlabeling;
 }
 
 AntiBandwidth::solutionT VNS::GVNS(const std::vector<std::vector<short int>>& adjMatrix) {
 	
+
+
 	return AntiBandwidth::solutionT();
 }
 

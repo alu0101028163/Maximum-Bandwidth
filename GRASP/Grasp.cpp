@@ -7,7 +7,7 @@ namespace Grasp{
 
   float PERCENTAGE = 0.5;
 
-  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
+  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
     srand((int)std::time(0));
 
 
@@ -35,7 +35,7 @@ namespace Grasp{
   }
 
 
-  void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
       if(currentValue  > bestSolutionValue){
          bestSolution = currentSolution;
@@ -43,7 +43,7 @@ namespace Grasp{
       }
   }
 
-  void localSearch(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
 
        int bestI = -1;
        int bestJ = -1;
@@ -73,13 +73,13 @@ namespace Grasp{
     label[j] = temp;
   }
 
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph){
+  int evaluateMovement(int i, int j , std::vector<int> label, const std::vector< std::vector<short int> >& graph){
     swap(i,j,label);
     return AntiBandwidth::objectiveFunction(graph,label);
   }
 
 
-  std::vector<int> constructGreedyRandomizedSolution(std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
+  std::vector<int> constructGreedyRandomizedSolution(const std::vector< std::vector<short int> >& graph, std::vector<int>& solutionElements){
 
         std::list<int> remainingLabels;
         std::copy(solutionElements.begin(), solutionElements.end(), std::back_inserter(remainingLabels));
@@ -101,7 +101,7 @@ namespace Grasp{
     of a segmentation fault, but i think it shouldn't be necessary because of the (!isVisited(j, labeling) condition.
     Track the problem down.
    */
-  void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
+  void constructSolution(int actualNode, const std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
       // std::cout << "ACTUAL NODE: " << actualNode << "\n";
 
