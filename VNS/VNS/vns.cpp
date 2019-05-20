@@ -24,10 +24,18 @@ AntiBandwidth::solutionT VNS::VND_LS(AntiBandwidth::solutionT sol, const std::ve
 
 AntiBandwidth::solutionT VNS::VND(const std::vector<std::vector<short int>>& adjMatrix) {
 
+	int non_improved_it = 0;
+	AntiBandwidth::solutionT labeling;
+
+	while (non_improved_it < 10) {
+		labeling = Grasp::grasp(adjMatrix, 100, 17);
+
+	}
+
 	return AntiBandwidth::solutionT();
 }
 
-AntiBandwidth::solutionT VNS::BVNS(const std::vector<std::vector<short int>>& adjMatrix) {
+AntiBandwidth::solutionT VNS::GVNS(const std::vector<std::vector<short int>>& adjMatrix) {
 	
 	return AntiBandwidth::solutionT();
 }

@@ -3,11 +3,11 @@
 #include "AntiBandwidth.h"
 #include "neighborhood.h"
 #include "GraphGenerator.h"
+#include "Grasp.h"
 
 namespace VNS {
 
 	typedef AntiBandwidth::solutionT(*VNS)(const std::vector<std::vector<short int> >& adjMatrix);
-
 
 	// -------------------------------------------------------------------------------------------------
 	//											  VND_LS
@@ -34,10 +34,10 @@ namespace VNS {
 	AntiBandwidth::solutionT VND(const std::vector<std::vector<short int> >& adjMatrix);
 
 	// -------------------------------------------------------------------------------------------------
-	//											   BVNS
+	//											   GVNS
 	// -------------------------------------------------------------------------------------------------
 
-	AntiBandwidth::solutionT BVNS(const std::vector<std::vector<short int> >& adjMatrix);
+	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix);
 
 	// -------------------------------------------------------------------------------------------------
 	//										   AUX METHODS
