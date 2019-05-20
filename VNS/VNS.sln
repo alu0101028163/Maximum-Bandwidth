@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VNSLib", "VNSLib\VNSLib.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing", "Testing\Testing.vcxproj", "{F8500A36-FE74-4C9E-AAF3-266B6F3B34A8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GRAPSLib", "GRAPSLib\GRAPSLib.vcxproj", "{0DDF4CF6-E270-4473-9B40-354194135E85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{F8500A36-FE74-4C9E-AAF3-266B6F3B34A8}.Release|x64.Build.0 = Release|x64
 		{F8500A36-FE74-4C9E-AAF3-266B6F3B34A8}.Release|x86.ActiveCfg = Release|Win32
 		{F8500A36-FE74-4C9E-AAF3-266B6F3B34A8}.Release|x86.Build.0 = Release|Win32
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Debug|x64.ActiveCfg = Debug|x64
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Debug|x64.Build.0 = Debug|x64
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Debug|x86.ActiveCfg = Debug|Win32
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Debug|x86.Build.0 = Debug|Win32
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Release|x64.ActiveCfg = Release|x64
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Release|x64.Build.0 = Release|x64
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Release|x86.ActiveCfg = Release|Win32
+		{0DDF4CF6-E270-4473-9B40-354194135E85}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

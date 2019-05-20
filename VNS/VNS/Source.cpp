@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Grasp.h"
 #include "vns.h"
 #include "DeterministAlgorithm.h"
 
@@ -8,17 +9,26 @@ int main() {
 
 	try {
 		std::vector<std::vector<short int> >
-			adjMatrix = GraphGen::disperseFileToGraph(true, 
-				"C:\\Users\\Fernando\\Documents\\GitHub\\ABM_DAA\\Literature_Instances\\hb\\ash85.mtx.rnd");
-		AntiBandwidth::solutionT labels;
+			adjMatrix = GraphGen::disperseFileToGraph(false, 
+				"C:\\Users\\Fernando\\Documents\\GitHub\\ABM_DAA\\Literature_Instances\\hb\\bcspwr01.mtx.rnd");
+
+		std::random_device rd;
+		std::mt19937 generator{ rd() };
 
 		// Exchange for random labeling generator / GRASP
-		for (int i = 0; i < adjMatrix.size(); i++)
-			labels.push_back(i + 1);
+		Grasp::setPercentage(0.6);
+		AntiBandwidth::solutionT labels = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max(), false);
+	
 
-		AntiBandwidth::solutionT local_opt = VNS::VND(labels, adjMatrix);
-		std::cout << "VND finished!" << std::endl;
-		VNS::traceSolution(local_opt, adjMatrix);
+		labels = VNS::GVNS(adjMatrix, rd);
+		VNS::traceSolution(labels, adjMatrix);
+		/*
+		for (int i = 0; i < 10; i++) {
+			labels = NeighborStructs::quintupleExchangeR(labels, adjMatrix, generator);
+			//std::cout << "Finished VND" << std::endl;
+			VNS::traceSolution(labels, adjMatrix);
+		}
+		*/
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;

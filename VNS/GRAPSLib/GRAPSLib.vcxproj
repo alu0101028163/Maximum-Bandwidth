@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{080690D9-8F75-46CD-B893-9CFBA6BC8E10}</ProjectGuid>
+    <ProjectGuid>{0DDF4CF6-E270-4473-9B40-354194135E85}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>VNSLib</RootNamespace>
+    <RootNamespace>GRAPSLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -93,7 +93,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Fernando\Documents\GitHub\ABM_DAA\GRASP;C:\Users\Fernando\Documents\GitHub\ABM_DAA\NeighborhoodStructs;C:\Users\Fernando\Documents\GitHub\ABM_DAA\AntiBandwidth;C:\Users\Fernando\Documents\GitHub\ABM_DAA\GraphGenerator;C:\Users\Fernando\Documents\GitHub\ABM_DAA\DeterministAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,27 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\GRASP\Grasp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\GRASP\Grasp.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AntiBandwidthLib\AntiBandwidthLib.vcxproj">
       <Project>{03fcda25-05c9-4d34-a919-da3cadd02f7c}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DeterministAlgorithmLib\DeterministAlgorithmLib.vcxproj">
-      <Project>{00940309-df57-4f08-b930-e966f4c136eb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GraphGeneratorLib\GraphGeneratorLib.vcxproj">
-      <Project>{64bdd558-7078-4c08-9f78-9ffcdb1d4cf2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GRAPSLib\GRAPSLib.vcxproj">
-      <Project>{0ddf4cf6-e270-4473-9b40-354194135e85}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\NeighborhoodStructsLib\NeighborhoodStructsLib.vcxproj">
-      <Project>{74b1e5b8-565e-4831-abff-d3c443fc74ab}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\VNS\vns.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\VNS\vns.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
