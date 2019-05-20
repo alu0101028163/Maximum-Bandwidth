@@ -16,8 +16,8 @@ namespace Grasp{
 
     void setPercentage(float percentage);
 
-    std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager);
-    bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph);
+    std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager);
+    bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
     void swap(int i, int j , std::vector<int>& label);
     int evaluateMovement(int i, int j , std::vector<int> label, const std::vector< std::vector<short int> >& graph);
     void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);

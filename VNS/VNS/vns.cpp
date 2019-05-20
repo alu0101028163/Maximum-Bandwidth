@@ -25,7 +25,7 @@ AntiBandwidth::solutionT VNS::VND_LS(AntiBandwidth::solutionT sol, const std::ve
 AntiBandwidth::solutionT VNS::VND(const std::vector<std::vector<short int>>& adjMatrix) {
 
 	int non_improved_it = 0;
-	AntiBandwidth::solutionT bestlabeling = Grasp::grasp(adjMatrix, 100, 17);
+	AntiBandwidth::solutionT bestlabeling = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max(), false);
 	AntiBandwidth::solutionT nextlabeling;
 
 	std::vector<NeighborStructs::detNeighStructFunction> nstructs = {
@@ -36,7 +36,7 @@ AntiBandwidth::solutionT VNS::VND(const std::vector<std::vector<short int>>& adj
 
 	while (non_improved_it < 20) {
 
-		nextlabeling = Grasp::grasp(adjMatrix, 100, 17);
+		nextlabeling = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max() , false);
 		nextlabeling = VND_LS(nextlabeling, adjMatrix, nstructs);
 
 		if (AntiBandwidth::objectiveFunction(adjMatrix, bestlabeling) <			// optimize
@@ -59,7 +59,7 @@ AntiBandwidth::solutionT VNS::GVNS(const std::vector<std::vector<short int>>& ad
 	bool improvement;
 
 	AntiBandwidth::solutionT bestLabeling;
-	AntiBandwidth::solutionT labeling = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max());
+	AntiBandwidth::solutionT labeling = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max(), false);
 	
 	std::vector<NeighborStructs::randNeighStructFunction> rn_structs = {
 			NeighborStructs::simpleExchangeR,

@@ -7,7 +7,7 @@ namespace Grasp{
 
   float PERCENTAGE = 0.5;
 
-  std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
+  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
     srand((int)std::time(0));
 
 
@@ -38,7 +38,7 @@ namespace Grasp{
   }
 
 
-  bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
+  bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
       if(currentValue  > bestSolutionValue){
          bestSolution = currentSolution;
@@ -101,7 +101,7 @@ namespace Grasp{
 
   }
 
-  void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
+  void constructSolution(int actualNode, const std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
          for(int j = 0; j < graph.size(); j++){
            if((graph[actualNode][j] == 1) && (!isVisited(j, labeling))){

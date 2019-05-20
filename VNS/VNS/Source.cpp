@@ -17,7 +17,7 @@ int main() {
 
 		// Exchange for random labeling generator / GRASP
 		Grasp::setPercentage(0.6);
-		AntiBandwidth::solutionT labels = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max());
+		AntiBandwidth::solutionT labels = Grasp::grasp(adjMatrix, 100, std::numeric_limits<int>::max(), false);
 	
 
 		labels = VNS::GVNS(adjMatrix, rd);
