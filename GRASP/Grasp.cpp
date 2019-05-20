@@ -6,9 +6,9 @@
 namespace Grasp{
 
   float PERCENTAGE = 0.5;
-  int mode = 1;
+  int STRUCTURE = 0;
 
-  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
+  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, bool eager){
     srand((int)std::time(0));
 
 
@@ -41,8 +41,6 @@ namespace Grasp{
 
   bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
-      std::cout << "CURRENT SOLUTION: " << currentValue << "\n";
-      std::cout << "BEST SOLUTION: " << bestSolutionValue << "\n";
       if(currentValue  > bestSolutionValue){
          bestSolution = currentSolution;
          bestSolutionValue = currentValue;
@@ -53,16 +51,23 @@ namespace Grasp{
 
   void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
 
-    if(mode == 0)
-    simpleExchange(currentSolution,graph);
-    else if(mode == 1)
-    doubleExchange(currentSolution, graph);
-    else cyclicAdjExchange(currentSolution, graph);
 
+    switch(STRUCTURE){
+      case 0:
+      simpleExchange(currentSolution,graph);
+      break;
+
+      case 1:
+      cyclicAdjExchange(currentSolution, graph);
+      break;
+
+      case 2:
+      doubleExchange(currentSolution, graph);
+      break;
+    }
   }
 
   void doubleExchange(std::vector<int>&  currentSolution, const std::vector<std::vector<short int>>& graph) {
-
     int nextObjFunction;
     int oldObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
 
@@ -95,8 +100,7 @@ namespace Grasp{
 
   }
 
-  void simpleExchange(std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
-
+  void simpleExchange(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
     int bestI = -1;
     int bestJ = -1;
     int bestValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
@@ -119,7 +123,6 @@ namespace Grasp{
   }
 
   void cyclicAdjExchange(std::vector<int>& currentSolution,const std::vector<std::vector<short int>>& graph) {
-
   	std::vector<int> currentSolutioncpy = currentSolution;
   	int nextObjFunction;
   	int oldObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
@@ -263,6 +266,10 @@ namespace Grasp{
 
   void setPercentage(float percentage){
     PERCENTAGE = percentage;
+  }
+
+  void setStructure(int structure){
+    STRUCTURE = structure;
   }
 
 

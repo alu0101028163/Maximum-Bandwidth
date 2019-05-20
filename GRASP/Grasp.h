@@ -13,8 +13,10 @@
 namespace Grasp{
 
     extern float PERCENTAGE;
+    extern int STRUCTURE;
 
     void setPercentage(float percentage);
+    void setStructure(int mode);
 
     std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, bool eager);
     bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);

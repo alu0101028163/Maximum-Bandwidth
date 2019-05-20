@@ -6,7 +6,16 @@
 
 namespace TabuSearch{
 
-  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue);
+
+  extern int intensificationCoefficient;
+  extern int diversificationCoefficient;
+  extern int tabuCoefficient;
+
+  void setTabuCoefficient(int tabuCoef);
+  void setIntensificationCoefficient(int intensifCoef);
+  void setDiversificationCoefficient(int diversifCoef);
+
+  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations);
 
   /**
    * Initializes empty 2D-vector with dimensions equal to : dimension x dimension.

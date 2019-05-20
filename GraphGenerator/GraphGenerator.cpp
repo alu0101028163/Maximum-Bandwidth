@@ -101,7 +101,7 @@ std::vector<std::vector<short int> > GraphGen::denseFileToGraph(std::string file
 }
 
 std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(bool ignorefirst, const std::string& fileName){
-	
+
 	std::vector < std::vector <short int > > adjacencyMatrix_;
 	std::ifstream infile;
 	infile.exceptions(std::ifstream::badbit);
@@ -111,9 +111,9 @@ std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(bool ignorefi
 		throw std::ifstream::failure("Error trying to read graph file!");
 
 	// Ignore first line when specified (for files with results)
-	if (ignorefirst) 
+	if (ignorefirst)
 		infile.ignore(std::numeric_limits<int>::max(), infile.widen('\n'));
-	
+
 	int nCols, nRows, nArcs;
 	infile >> nCols >> nRows >> nArcs;
 
@@ -135,7 +135,7 @@ std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(bool ignorefi
 	}
 
 	infile.close();
-	
+
 	return adjacencyMatrix_;
 }
 
@@ -173,4 +173,21 @@ std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(const std::st
 	infile.close();
 
 	return adjacencyMatrix_;
+}
+
+std::vector<int> GraphGen::readLabel(const std::string& fileName){
+
+	std::vector <int> label;
+	std::ifstream infile(fileName);
+
+
+	int element;
+	while (infile >> element) {
+		label.push_back(element);
+	}
+
+	infile.close();
+
+	return label;
+
 }
