@@ -186,6 +186,20 @@ AntiBandwidth::solutionT NeighborStructs::doubleExchangeR(
 	return labeling;
 }
 
+AntiBandwidth::solutionT NeighborStructs::quintupleExchangeR(AntiBandwidth::solutionT labeling, 
+	const std::vector<std::vector<short int>>& adjMatrix,
+	std::mt19937 & generator) {
+	
+	int i = 0;
+	while (i < 5) {
+		// Structural quality almost ensured by random factor
+		labeling = NeighborStructs::simpleExchangeR(labeling, adjMatrix, generator);
+		i++;
+	}
+	
+	return labeling;
+}
+
 AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchangeR(
 	AntiBandwidth::solutionT labeling, 
 	const std::vector<std::vector<short int>>& adjMatrix,
@@ -193,8 +207,8 @@ AntiBandwidth::solutionT NeighborStructs::cyclicAdjExchangeR(
 	
 	std::uniform_int_distribution<> integerDistribution(0, labeling.size() - 1);
 	// in this case, generate a starting index, a movement direction and a number of swaps to movement side
-	bool dir = (integerDistribution(generator) > labeling.size() / 2);		// false-> right, true -> left
-	int index = integerDistribution(generator);
+	bool dir = (integerDistribution(generator) > labeling.size() / 2) + 1;		// false-> right, true -> left
+	int index = integerDistribution(generator) + 1;
 	int n_swaps = (dir) ? 
 		((integerDistribution(generator)) % (index)) :
 		((integerDistribution(generator)) % (labeling.size() - index));

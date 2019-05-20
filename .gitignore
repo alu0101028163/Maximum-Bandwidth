@@ -6,7 +6,7 @@ instances
 VNS/.vs/
 .vs/
 VNS/VNSLib/Release
-VNS/GRASPLib/Release
+VNS/GRAPSLib/Release
 VNS/NeighborhoodStructsLib/Release
 VNS/DeterministAlgorithmLib/Release
 VNS/AntiBandwidthLib/
