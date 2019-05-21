@@ -5,6 +5,11 @@ instances
 # vs generated files
 VNS/.vs/
 .vs/
+VNS/VNDBenchmark/Release
+VNS/VNSLib/Release
+VNS/GRAPSLib/Release
+VNS/NeighborhoodStructsLib/Release
+VNS/DeterministAlgorithmLib/Release
 VNS/AntiBandwidthLib/
 VNS/CatchLib/
 VNS/GraphGeneratorLib/

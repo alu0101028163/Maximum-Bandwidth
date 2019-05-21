@@ -1,3 +1,4 @@
+Problem_name: mesh10_10.txt	Optimum: 45
 100 100 400
 1 2
 1 11
