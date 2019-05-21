@@ -7,6 +7,8 @@
 
 namespace VNS {
 
+	static int MAX_N_ITER_WO_IMPROVEMENT;
+
 	typedef AntiBandwidth::solutionT(*VNS)(const std::vector<std::vector<short int> >& adjMatrix);
 
 	// -------------------------------------------------------------------------------------------------
@@ -44,4 +46,6 @@ namespace VNS {
 	// -------------------------------------------------------------------------------------------------
 
 	void traceSolution(const AntiBandwidth::solutionT& sol, const std::vector<std::vector<short int> >&);
+
+	void setMaxNIIterations(int iter);
 }
