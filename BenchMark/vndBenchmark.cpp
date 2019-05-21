@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
 
-	if (argc != 3) {
+	if (argc != 4) {
 		std::cout << "Wrong use: \nFirst argument is the path of the instance you want to test."
 			<< "\nSecond argument is the name of the instance you want to test"
 			<< "\nThird argument is the best value for that instance.\n";
@@ -20,10 +20,12 @@ int main(int argc, char *argv[]) {
 
 	std::string instancePath = std::string(argv[1]);
 	std::string instanceName = std::string(argv[2]);
-	//int bestValue = atoi(argv[3]);
+	std::string graspLabel = std::string(argv[3]);
+
+	std::vector<int> labeling = GraphGen::readLabel(graspLabel);
 
 	std::ofstream vndCalculations;
-	std::string fichName = std::string("vndCalculations_" + instanceName + ".csv");
+	std::string fichName = std::string("VndCalculations_" + instanceName + ".csv");
 	vndCalculations.open(fichName);
 	vndCalculations << "max_its_wo_improv,labeling,value\n";
 
@@ -40,10 +42,10 @@ int main(int argc, char *argv[]) {
 	while (max_its < MAX_ITS_LIMIT) {
 		VNS::setMaxNIIterations(max_its);
 		for (int i = 0; i < N_REPS; i++) {
-			std::vector<int> labeling = VNS::VND(graph);
+			// std::vector<int> labeling = VNS::VND(graph);
 			vndCalculations << max_its << ",";
 			vndCalculations << "[ ";
-			
+
 			for (int j = 0; j < labeling.size(); j++) {
 				vndCalculations << labeling[j] << " ";
 			}
