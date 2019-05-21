@@ -4,10 +4,10 @@ import pandas as pd
 
 paths = []
 paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd")
-paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd")
-paths.append("Literature_Instances/hb/ash85.mtx.rnd")
-paths.append("Literature_Instances/hb/ibm32.mtx.rnd")
-paths.append("Literature_Instances/hb/will57.mtx.rnd")
+# paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd")
+# paths.append("Literature_Instances/hb/ash85.mtx.rnd")
+# paths.append("Literature_Instances/hb/ibm32.mtx.rnd")
+# paths.append("Literature_Instances/hb/will57.mtx.rnd")
 
 
 def benchGrasp():
@@ -38,7 +38,7 @@ def benchGrasp():
 def benchTabu():
 
     tabu_command = "g++ -g -std=c++11 -o Tabu_Benchmark tabuBenchmark.cpp ../AntiBandwidth/catch.hpp ../GraphGenerator/GraphGenerator.cpp"
-    tabu_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../TabuSearch/TabuSearch.cpp"
+    tabu_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../TabuSearch/TabuSearch.cpp ../MatrixGenerator/Matrix_generator.cpp"
 
     if (os.system(tabu_command) != 0):
         print("Error trying to compile TABU benchmark")
