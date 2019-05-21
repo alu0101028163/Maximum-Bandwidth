@@ -177,6 +177,7 @@ std::vector<std::vector<short int> > GraphGen::disperseFileToGraph(const std::st
 
 std::vector<int> GraphGen::readLabel(const std::string& fileName){
 
+
 	std::vector <int> label;
 	std::ifstream infile(fileName);
 

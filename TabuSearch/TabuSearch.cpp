@@ -22,10 +22,10 @@ namespace TabuSearch{
   std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations){
 
 
-      std::cout << "IN COEFF -> " << intensificationCoefficient << "\n";
-      std::cout << "DIV COEFF -> " << diversificationCoefficient << "\n";
-      std::cout << "TABU COEFF -> " << tabuCoefficient << "\n";
-
+      // std::cout << "IN COEFF -> " << intensificationCoefficient << "\n";
+      // std::cout << "DIV COEFF -> " << diversificationCoefficient << "\n";
+      // std::cout << "TABU COEFF -> " << tabuCoefficient << "\n";
+      //
 
       // Evaluating the initial solution we get the best objective function value for our problem.
       int bestValue = AntiBandwidth::objectiveFunction(graph,initialSolution);
