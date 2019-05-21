@@ -6,8 +6,9 @@
 namespace Grasp{
 
   float PERCENTAGE = 0.5;
+  int STRUCTURE = 0;
 
-  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager){
+  std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, bool eager){
     srand((int)std::time(0));
 
 
@@ -23,7 +24,7 @@ namespace Grasp{
 
 
     int i = 0;
-    while((i < maxIterations) && (currentValue < objectiveValue)){
+    while((i < maxIterations)){
       currentSolution = constructGreedyRandomizedSolution(graph, currentSolution);
       localSearch(currentSolution, graph);
       bool isBetter = updateSolution(bestSolutionValue, bestSolution, currentSolution, graph);
@@ -50,25 +51,103 @@ namespace Grasp{
 
   void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
 
-       int bestI = -1;
-       int bestJ = -1;
-       int bestValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
 
-       for(int i = 0; i < currentSolution.size(); i++){
-         for(int j = 0; j < currentSolution.size(); j++){
-           int actualValue;
-           if((actualValue = evaluateMovement(i,j,currentSolution,graph)) > bestValue){
-             bestI = i;
-             bestJ = j;
-             bestValue = actualValue;
-           }
-         }
-       }
+    switch(STRUCTURE){
+      case 0:
+      simpleExchange(currentSolution,graph);
+      break;
 
-       if((bestI != -1) && (bestJ != -1)){
-         swap(bestI,bestJ,currentSolution);
-       }
+      case 1:
+      cyclicAdjExchange(currentSolution, graph);
+      break;
 
+      case 2:
+      doubleExchange(currentSolution, graph);
+      break;
+    }
+  }
+
+  void doubleExchange(std::vector<int>&  currentSolution, const std::vector<std::vector<short int>>& graph) {
+    int nextObjFunction;
+    int oldObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
+
+    for (int i = 0; i < currentSolution.size() - 1; i++) {
+      for (int j = i + 1; j < currentSolution.size(); j++) {
+        std::swap(currentSolution[i], currentSolution[j]);
+
+        for (int k = 0; k < currentSolution.size() - 1; k++) {
+          for (int z = k + 1; z < currentSolution.size(); z++) {
+            // Only perform second swap if indexes are different 2 on 2
+            if ((k != i || z != j) || (k != j || z != i)) {
+              std::swap(currentSolution[k], currentSolution[z]);
+
+              nextObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
+              if (nextObjFunction > oldObjFunction){
+                return;
+              }
+              // reverse second swap
+              std::swap(currentSolution[k], currentSolution[z]);
+            }
+          }
+        }
+
+        // reverse first swap
+        std::swap(currentSolution[i], currentSolution[j]);
+      }
+    }
+
+    return;
+
+  }
+
+  void simpleExchange(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph){
+    int bestI = -1;
+    int bestJ = -1;
+    int bestValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
+
+    for(int i = 0; i < currentSolution.size(); i++){
+      for(int j = 0; j < currentSolution.size(); j++){
+        int actualValue;
+        if((actualValue = evaluateMovement(i,j,currentSolution,graph)) > bestValue){
+          bestI = i;
+          bestJ = j;
+          bestValue = actualValue;
+        }
+      }
+    }
+
+    if((bestI != -1) && (bestJ != -1)){
+      swap(bestI,bestJ,currentSolution);
+    }
+
+  }
+
+  void cyclicAdjExchange(std::vector<int>& currentSolution,const std::vector<std::vector<short int>>& graph) {
+  	std::vector<int> currentSolutioncpy = currentSolution;
+  	int nextObjFunction;
+  	int oldObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
+
+  	for (int i = 0; i < currentSolution.size(); i++) {
+
+  		for (int j = i - 1; j > 0; j--) {
+  			std::swap(currentSolution[j], currentSolution[j + 1]);
+
+  			nextObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
+  			if (nextObjFunction > oldObjFunction)
+  				return;
+  		}
+
+  		currentSolution = currentSolutioncpy;		// Resets are performed in-between consecutive swaps procedures
+
+  		for (int j = i + 1; j < currentSolution.size(); j++) {
+  			std::swap(currentSolution[j], currentSolution[j - 1]);
+
+  			nextObjFunction = AntiBandwidth::objectiveFunction(graph, currentSolution);
+  			if (nextObjFunction > oldObjFunction)
+  				return;
+  		}
+  	}
+  	return;
   }
 
 
@@ -187,6 +266,10 @@ namespace Grasp{
 
   void setPercentage(float percentage){
     PERCENTAGE = percentage;
+  }
+
+  void setStructure(int structure){
+    STRUCTURE = structure;
   }
 
 

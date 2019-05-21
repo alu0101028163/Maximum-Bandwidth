@@ -6,7 +6,16 @@
 
 namespace TabuSearch{
 
-  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue);
+
+  extern int intensificationCoefficient;
+  extern int diversificationCoefficient;
+  extern int tabuCoefficient;
+
+  void setTabuCoefficient(int tabuCoef);
+  void setIntensificationCoefficient(int intensifCoef);
+  void setDiversificationCoefficient(int diversifCoef);
+
+  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations);
 
   /**
    * Initializes empty 2D-vector with dimensions equal to : dimension x dimension.
@@ -22,7 +31,7 @@ namespace TabuSearch{
    * @param  j
    * @return
    */
-  bool isTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int i, int j);
+  bool isTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int i, int j);
 
   /**
    * Updates the state of the Recency-Frequency matrix decrementing the tabu time
@@ -64,7 +73,7 @@ namespace TabuSearch{
    * @param  graph
    * @return the value of the ObjectiveFunction obtained if you swap i and j.
    */
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> > graph);
+  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph);
 
   /**
    * Checks if the current solution is better than the best solution, updating the best solution

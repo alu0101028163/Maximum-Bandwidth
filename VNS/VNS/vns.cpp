@@ -109,3 +109,7 @@ void VNS::traceSolution(const AntiBandwidth::solutionT& sol, const std::vector<s
 		std::cout << sol[i] << ", ";
 	std::cout << "\t" << AntiBandwidth::objectiveFunction(adjMatrix, sol) << std::endl;
 }
+
+void VNS::setMaxNIIterations(int iter) {
+	MAX_N_ITER_WO_IMPROVEMENT = iter;
+}

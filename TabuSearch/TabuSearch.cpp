@@ -2,10 +2,30 @@
 
 namespace TabuSearch{
 
-  const int intensificationCoefficient = 10;
-  const int diversificationCoefficient = 3;
+  int intensificationCoefficient = 10;
+  int diversificationCoefficient = 3;
+  int tabuCoefficient = 3;
 
-  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations, int objectiveValue){
+
+  void setTabuCoefficient(int tabuCoef){
+    tabuCoefficient = tabuCoef;
+  }
+
+  void setIntensificationCoefficient(int intensifCoef){
+    intensificationCoefficient = intensifCoef;
+  }
+
+  void setDiversificationCoefficient(int diversifCoef){
+    diversificationCoefficient = diversifCoef;
+  }
+
+  std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations){
+
+
+      // std::cout << "IN COEFF -> " << intensificationCoefficient << "\n";
+      // std::cout << "DIV COEFF -> " << diversificationCoefficient << "\n";
+      // std::cout << "TABU COEFF -> " << tabuCoefficient << "\n";
+      //
 
       // Evaluating the initial solution we get the best objective function value for our problem.
       int bestValue = AntiBandwidth::objectiveFunction(graph,initialSolution);
@@ -27,10 +47,10 @@ namespace TabuSearch{
       int intensificationCounter = 0;
 
 
-      while((iteration < maxIterations) && (bestValue < objectiveValue)){
+      while(iteration < maxIterations){
 
-      MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
-      std::cout << "\n";
+      // MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
+      // std::cout << "\n";
       // -------------------------------------------------------------------------
       //                            LOCAL SEARCH
       // -------------------------------------------------------------------------
@@ -111,7 +131,7 @@ namespace TabuSearch{
     // We update the tabu values of the recencyFrequencyMatrix
     updateRecFreqMatrix(recencyFrequencyMatrix);
     // And now we set the actual movement as tabu movement
-    addTabu(recencyFrequencyMatrix,3, bestLocalI, bestLocalJ);
+    addTabu(recencyFrequencyMatrix, tabuCoefficient , bestLocalI, bestLocalJ);
 
     iteration += 1;
   }
@@ -138,7 +158,7 @@ namespace TabuSearch{
     }
   }
 
-  bool isTabu(std::vector<std::vector<int> > recencyFrequencyMatrix, int i, int j){
+  bool isTabu(std::vector<std::vector<int> >& recencyFrequencyMatrix, int i, int j){
     return (recencyFrequencyMatrix[i][j] > 0);
   }
 
@@ -175,7 +195,7 @@ namespace TabuSearch{
     label[j] = temp;
   }
 
-  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> > graph){
+  int evaluateMovement(int i, int j , std::vector<int> label, std::vector< std::vector<short int> >& graph){
     swap(i,j,label);
     return AntiBandwidth::objectiveFunction(graph,label);
   }

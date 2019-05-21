@@ -13,14 +13,19 @@
 namespace Grasp{
 
     extern float PERCENTAGE;
+    extern int STRUCTURE;
 
     void setPercentage(float percentage);
+    void setStructure(int mode);
 
-    std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue, bool eager);
+    std::vector<int> grasp(const std::vector< std::vector<short int> >& graph, int maxIterations, bool eager);
     bool updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
     void swap(int i, int j , std::vector<int>& label);
     int evaluateMovement(int i, int j , std::vector<int> label, const std::vector< std::vector<short int> >& graph);
     void localSearch(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
+    void simpleExchange(std::vector<int>& currentSolution, const std::vector< std::vector<short int> >& graph);
+    void doubleExchange(std::vector<int>&  currentSolution, const std::vector<std::vector<short int>>& graph);
+    void cyclicAdjExchange(std::vector<int>& currentSolution, const std::vector<std::vector<short int>>& graph);
 
     /**
      * Wrapper function for the construction of a greedy randomized solution that initializes the data structures and recursive
