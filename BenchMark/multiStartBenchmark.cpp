@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
   //    std::cout << label[i] << " ";
   // std::cout << "\n";
   // std::cout << "SIZE: " << label.size() << "\n";
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../" + instancePath);
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph(instancePath);
 
 
   std::ofstream multiStartCalculations;
@@ -30,7 +30,8 @@ int main(int argc, char *argv[]){
   multiStartCalculations << "n_iter, n_local_searchs , label, value, structure, time_in_milliseconds\n";
 
 
-  const int nIteraciones = 100;
+  const int nIteraciones = 10;
+  const int localSearch = 100;
   const int structure  = 3;
 
 
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]){
         multiStartCalculations << nIteraciones << ",";
 
         auto start = std::chrono::system_clock::now();
-        std::vector<int> labeling = MultiStart::multiStart(i,graph, nIteraciones);
+        std::vector<int> labeling = MultiStart::multiStart(i,graph, localSearch);
         auto end = std::chrono::system_clock::now();
         multiStartCalculations << "[ ";
         for(int j = 0; j < labeling.size(); j++){

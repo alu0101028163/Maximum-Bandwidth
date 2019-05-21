@@ -1,9 +1,9 @@
 #pragma once
 
-#include "AntiBandwidth.h"
-#include "neighborhood.h"
-#include "GraphGenerator.h"
-#include "Grasp.h"
+#include "../../GRASP/Grasp.h"
+#include "../../GraphGenerator/GraphGenerator.h"
+#include "../../AntiBandwidth/AntiBandwidth.h"
+#include "../../NeighborhoodStructs/neighborhood.h"
 
 namespace VNS {
 
@@ -17,12 +17,12 @@ namespace VNS {
 
 	/**
 		This local search procedure is based on the VND algorithm, and uses neighborhood structures defined
-		in NeighborStructs. 
+		in NeighborStructs.
 		@param sol is the initial labeling to which the local search will be applied
 		@param adjMatrix is the non-directed graph defining structure, an adjacency matrix
 		@param n_structs is an array containing the different neighbor search functions
-		
-		@return an improved labeling (based on Antibandwidth::objectiveFunction) if found. 
+
+		@return an improved labeling (based on Antibandwidth::objectiveFunction) if found.
 				If provided sol is already a local optimum, return sol
 	*/
 	AntiBandwidth::solutionT VND_LS(AntiBandwidth::solutionT sol,

@@ -4,11 +4,11 @@ import pandas as pd
 import shutil
 
 paths = []
-paths.append("Literature_Instances/hb/ibm32.mtx.rnd") # 32
-paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd") # 39
-paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd") # 49
-paths.append("Literature_Instances/hb/will57.mtx.rnd") # 57
-paths.append("Literature_Instances/hb/ash85.mtx.rnd") # 85
+# paths.append("../Literature_Instances/hb/ibm32.mtx.rnd") # 32 -> Basi
+# paths.append("../Literature_Instances/hb/bcspwr01.mtx.rnd") # 39 -> Adri
+paths.append("../Literature_Instances/hb/bcspwr02.mtx.rnd") # 49 -> Basi
+# paths.append("../Literature_Instances/hb/will57.mtx.rnd") # 57 - > Adri
+# paths.append("../Literature_Instances/hb/ash85.mtx.rnd") # 85 -> Basi (si da tiempo)
 
 
 def securityCopy(src,dest):
@@ -43,8 +43,8 @@ def benchGrasp():
                 print("Error trying to test " + instance_path + " during GRASP" )
                 quit()
 
-            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/GraspCalculations"
-            dest = "/home/hyydra/Desktop/GraspCalculations"
+            src = "/home/basilio/ULL/DAA/PROYECTO_FINAL/Git Hub/Maximum-Bandwidth/BenchMark/GraspCalculations"
+            dest = "/home/basilio/Escritorio/GraspCalculations"
             securityCopy(src,dest)
         else:
             print("GRASP benchmark for file :" + instance_name + " already exists!")
@@ -89,8 +89,8 @@ def benchTabu():
             if (os.system(tabu_command) != 0):
                 print("Error trying to test " + instance_name + " during TABU search")
                 quit()
-            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/TabuCalculations"
-            dest = "/home/hyydra/Desktop/TabuCalculations"
+            src = "/home/basilio/ULL/DAA/PROYECTO_FINAL/Git Hub/Maximum-Bandwidth/BenchMark/TabuCalculations"
+            dest = "/home/basilio/Escritorio/TabuCalculations"
             securityCopy(src,dest)
         else:
             print("TABU benchmark for file: " + instance_name + " already exists!")
@@ -136,8 +136,8 @@ def benchVnd():
             if (os.system(vnd_command) != 0):
                 print("Error trying to test " + instance_name + " during VND search")
                 quit()
-            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/VndCalculations"
-            dest = "/home/hyydra/Desktop/VndCalculations"
+            src = "/home/basilio/ULL/DAA/PROYECTO_FINAL/Git Hub/Maximum-Bandwidth/BenchMark/VndCalculations"
+            dest = "/home/basilio/Escritorio/VndCalculations"
             securityCopy(src,dest)
         else:
             print("VND benchmark for file: " + instance_name + " already exists!")
@@ -183,8 +183,8 @@ def benchGvns():
             if (os.system(gvns_command) != 0):
                 print("Error trying to test " + instance_name + " during GVNS search")
                 quit()
-            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/GvnsCalculations"
-            dest = "/home/hyydra/Desktop/GvnsCalculations"
+            src = "/home/basilio/ULL/DAA/PROYECTO_FINAL/Git Hub/Maximum-Bandwidth/BenchMark/GvnsCalculations"
+            dest = "/home/basilio/Escritorio/GvnsCalculations"
             securityCopy(src,dest)
         else:
             print("GVNS benchmark for file: " + instance_name + " already exists!")
@@ -230,8 +230,8 @@ def benchMultiStart():
             if (os.system(multiStart_command) != 0):
                 print("Error trying to test " + instance_name + " during MULTISTART search")
                 quit()
-            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/MultiStartCalculations"
-            dest = "/home/hyydra/Desktop/MultiStartCalculations"
+            src = "/home/basilio/ULL/DAA/PROYECTO_FINAL/Git Hub/Maximum-Bandwidth/BenchMark/MultiStartCalculations"
+            dest = "/home/basilio/Escritorio/MultiStartCalculations"
             securityCopy(src,dest)
         else:
             print("MULTISTART benchmark for file: " + instance_name + " already exists!")
@@ -244,5 +244,5 @@ benchMultiStart()
 print("BENCHING MULTISTART")
 benchVnd()
 print("BENCHING VND")
-benchGvns()
-print("BENCHINIG GVNS")
+# benchGvns()
+# print("BENCHINIG GVNS")

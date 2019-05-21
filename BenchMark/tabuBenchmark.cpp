@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
   //    std::cout << label[i] << " ";
   // std::cout << "\n";
   // std::cout << "SIZE: " << label.size() << "\n";
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../" + instancePath);
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph(instancePath);
 
 
   std::ofstream graspCalculations;

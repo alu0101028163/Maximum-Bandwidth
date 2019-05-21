@@ -125,10 +125,7 @@ void MultiStart::calculateNeighborhood(int structureNum, std::vector<int>& curre
 }
 
 //repetitions -> lleva a cabo el número de repeticiones del calculateNeighborhood.
-std::vector<int> MultiStart::multiStart(int structure, const std::string &filename, int repetitions) {
-
-    std::vector<std::vector<short int> > adjMatrix;
-    adjMatrix = GraphGen::disperseFileToGraph(filename); // Generamos la matriz de adyacencia;
+std::vector<int> MultiStart::multiStart(int structure, std::vector<std::vector<short int>>& adjMatrix, int repetitions) {
 
     std::vector<int> currentSolution = randomVector(adjMatrix.size()); // Vector con la solución inicial.
     int bestOF = AntiBandwidth::objectiveFunction(adjMatrix, currentSolution);
@@ -146,10 +143,10 @@ std::vector<int> MultiStart::multiStart(int structure, const std::string &filena
         }
         currentSolution = randomVector(adjMatrix.size());
     }
-    std::cout << "BestsolutionOF " << AntiBandwidth::objectiveFunction(adjMatrix, bestSolution) << "\n";
-    for ( int j = 0; j < bestSolution.size() ; ++j ) {
-        std::cout << bestSolution[j] << " ";
-    }
+    // std::cout << "BestsolutionOF " << AntiBandwidth::objectiveFunction(adjMatrix, bestSolution) << "\n";
+    // for ( int j = 0; j < bestSolution.size() ; ++j ) {
+    //     std::cout << bestSolution[j] << " ";
+    // }
 
     return bestSolution;
 }

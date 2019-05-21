@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 
-	const int N_REPS = 10;
+	const int N_REPS = 1;
 	const int MAX_ITS_LIMIT = 50;
 
 	std::string instancePath = std::string(argv[1]);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	vndCalculations << "max_its_wo_improv,labeling,value,time_in_milliseconds\n";
 
 	int max_its = 10;
-	std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../" + instancePath);
+	std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph(instancePath);
 	std::vector<int> solutionElements;
 
 	// GraphGen::traceGeneratedMatrix(graph);
