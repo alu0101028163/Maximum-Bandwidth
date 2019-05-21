@@ -190,7 +190,7 @@ namespace Grasp{
          }
   }
 
-
+  //TODO: calculateLabelElement
   int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
     std::vector<int> candidateList = calculateCandidateList(parentNode, remainingLabels, labeling);

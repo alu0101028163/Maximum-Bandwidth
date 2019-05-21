@@ -32,33 +32,48 @@ int main(int argc, char *argv[]){
   std::ofstream graspCalculations;
   std::string fichName = std::string("./TabuCalculations/tabuCalculations_" + instanceName + ".csv");
   graspCalculations.open(fichName);
-  graspCalculations << "n_iter, tabu_coef, diver_coef, inten_coef, value, time_in_milliseconds\n";
+  graspCalculations << "n_iter, tabu_coef, diver_coef, inten_coef, label, value, time_in_milliseconds\n";
 
 
-  int minTabuCoef = 3;
-  int minItenCoef = 3;
-  int minDiverCoef = 3;
-  int maxTabuCoef = 100;
-  int maxIntenCoef = 10;
-  int maxDiverCoef = 4;
+  const int nIteraciones = 100;
+  const int minTabuCoef  = 3;
+  const int minIntenCoef = 3;
+  const int minDiverCoef = 3;
+  const int maxTabuCoef  = 100;
+  const int maxIntenCoef = 10;
+  const int maxDiverCoef = 4;
 
-
+  std::cout << "TABU BENCHMARK RUNNING\n";
   for(int i = minTabuCoef; i < maxTabuCoef; i *= 1.5){
-    for(int j = minIntenCoef; j < maxIntenCoef; j++){
-      for(int k = minDiverCoef; k < maxDiverCoef; k++){
+    for(int j = minDiverCoef; j < maxDiverCoef; j++){
+      for(int k = minIntenCoef; k < maxIntenCoef; k++){
+
+        graspCalculations << nIteraciones << ",";
+        graspCalculations << i << ",";
+        graspCalculations << k << ",";
+        graspCalculations << j << ",";
+
         TabuSearch::setTabuCoefficient(i);
-        TabuSearch::setIntensificationCoefficient(j);
-        TabuSearch::setDiversificationCoefficient(k);
+        TabuSearch::setDiversificationCoefficient(j);
+        TabuSearch::setIntensificationCoefficient(k);
 
         auto start = std::chrono::system_clock::now();
-        std::vector<int> label = TabuSearch::tabuSearch(label,graph, 100);
+        std::vector<int> labeling = TabuSearch::tabuSearch(label,graph, nIteraciones);
         auto end = std::chrono::system_clock::now();
+        graspCalculations << "[ ";
+        for(int j = 0; j < labeling.size(); j++){
+          graspCalculations << labeling[j] << " ";
+        }
+        graspCalculations << "],";
+        graspCalculations << AntiBandwidth::objectiveFunction(graph,labeling) << ",";
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
+        graspCalculations << elapsed.count() << "\n";
       }
     }
   }
+  std::cout << "TABU BENCHMARK FINISHED\n";
 
+  graspCalculations.close();
 
 
 }

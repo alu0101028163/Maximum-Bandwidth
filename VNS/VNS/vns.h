@@ -7,12 +7,12 @@
 
 namespace VNS {
 
-	static int MAX_N_ITER_WO_IMPROVEMENT;
+	static int MAX_N_ITER_WO_IMPROVEMENT = 10;
 
 	typedef AntiBandwidth::solutionT(*VNS)(const std::vector<std::vector<short int> >& adjMatrix);
 
 	// -------------------------------------------------------------------------------------------------
-	//											  VND_LS
+	//										VND-BASED LOCAL SEARCH
 	// -------------------------------------------------------------------------------------------------
 
 	/**
@@ -30,19 +30,24 @@ namespace VNS {
 		const std::vector<NeighborStructs::detNeighStructFunction>& n_structs);
 
 	// -------------------------------------------------------------------------------------------------
-	//												VND
+	//										  STANDALONE VND
 	// -------------------------------------------------------------------------------------------------
 
 	AntiBandwidth::solutionT VND(const std::vector<std::vector<short int> >& adjMatrix);
 
+	AntiBandwidth::solutionT VND(const std::vector<std::vector<short int> >& adjMatrix, const AntiBandwidth::solutionT& init_sol);
+
 	// -------------------------------------------------------------------------------------------------
-	//											   GVNS
+	//										GVNS IMPLEMENTATION
 	// -------------------------------------------------------------------------------------------------
 
 	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix, std::random_device& rd);
 
+	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix, const AntiBandwidth::solutionT& init_sol,
+		std::random_device& rd);
+
 	// -------------------------------------------------------------------------------------------------
-	//										   AUX METHODS
+	//										 AUXILIAR METHODS
 	// -------------------------------------------------------------------------------------------------
 
 	void traceSolution(const AntiBandwidth::solutionT& sol, const std::vector<std::vector<short int> >&);
