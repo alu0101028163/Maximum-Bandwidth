@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
     }
 
 
-    const int N_REPETITIONS = 10;
+    const int N_REPETITIONS = 100;
 
     std::string instancePath = std::string(argv[1]);
     std::string instanceName = std::string(argv[2]);
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
     std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph(instancePath);
 
     /* iterations equals to local searchs */
-    static const int arr[] = {10};
+    static const int arr[] = {100};
     std::vector<int> iterations(arr, arr + sizeof(arr) / sizeof(arr[0]) );
 
   for(int searchType = 0; searchType < 2; searchType++){

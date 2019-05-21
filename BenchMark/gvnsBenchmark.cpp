@@ -11,6 +11,7 @@
 #include <fstream>
 #include <vector>
 #include <chrono>
+#include <random>
 
 int main(int argc, char *argv[]) {
 
@@ -31,7 +32,7 @@ int main(int argc, char *argv[]) {
 	std::vector<int> label = GraphGen::readLabel(graspLabel);
 
 	std::ofstream vndCalculations;
-	std::string fichName = std::string("VndCalculations/VndCalculations_" + instanceName + ".csv");
+	std::string fichName = std::string("GvnsCalculations/GvnsCalculations_" + instanceName + ".csv");
 	vndCalculations.open(fichName);
 	vndCalculations << "max_its_wo_improv,labeling,value,time_in_milliseconds\n";
 
@@ -45,13 +46,15 @@ int main(int argc, char *argv[]) {
 		solutionElements.push_back(i);
 	}
 
+  std::random_device rd;
+
 	while (max_its < MAX_ITS_LIMIT) {
 		VNS::setMaxNIIterations(max_its);
 		for (int i = 0; i < N_REPS; i++) {
 			// std::vector<int> labeling = VNS::VND(graph);
-			std::cout << "VND MAX_ITS_LIMIT = "  << max_its << " ITERATION: " << i << "\n";
+			std::cout << "GVNS MAX_ITS_LIMIT = "  << max_its << " ITERATION: " << i << "\n";
 			auto start = std::chrono::system_clock::now();
-			std::vector<int> labeling = VNS::VND(graph,label);
+			std::vector<int> labeling = VNS::GVNS(graph,label,rd);
 			auto end = std::chrono::system_clock::now();
 			vndCalculations << max_its << ",";
 			vndCalculations << "[ ";

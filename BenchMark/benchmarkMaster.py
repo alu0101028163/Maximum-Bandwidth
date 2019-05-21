@@ -4,11 +4,11 @@ import pandas as pd
 import shutil
 
 paths = []
-paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd")
-paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd")
-paths.append("Literature_Instances/hb/ash85.mtx.rnd")
-paths.append("Literature_Instances/hb/ibm32.mtx.rnd")
-paths.append("Literature_Instances/hb/will57.mtx.rnd")
+paths.append("Literature_Instances/hb/ibm32.mtx.rnd") # 32
+paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd") # 39
+paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd") # 49
+paths.append("Literature_Instances/hb/will57.mtx.rnd") # 57
+paths.append("Literature_Instances/hb/ash85.mtx.rnd") # 85
 
 
 def securityCopy(src,dest):
@@ -95,4 +95,154 @@ def benchTabu():
         else:
             print("TABU benchmark for file: " + instance_name + " already exists!")
 
+
+def benchVnd():
+
+    vnd_command = "g++ -g -std=c++11 -o Vnd_Benchmark vndBenchmark.cpp ../AntiBandwidth/catch.hpp ../GraphGenerator/GraphGenerator.cpp"
+    vnd_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../VNS/VNS/vns.cpp ../MatrixGenerator/Matrix_generator.cpp ../NeighborhoodStructs/neighborhood.cpp"
+
+    if (os.system(vnd_command) != 0):
+        print("Error trying to compile TABU benchmark")
+        quit()
+
+    for filename in os.listdir("./GraspCalculations"):
+        # print(filename)
+
+        df = pd.read_csv('./GraspCalculations/'+filename)
+        max_label = df.loc[(df['value'] == df['value'].max())]['labeling'].unique()
+        max_label = max_label[0].split(" ")
+
+        file = open("temp_label.txt","w+")
+        for i in range(len(max_label ) - 2):
+            file.write(max_label[i + 1] + "\n")
+        file.close()
+
+        instance_name_regex = re.compile("_(\w+)\.csv")
+        instance_name = instance_name_regex.search(filename)
+        instance_name = instance_name.group(1)
+
+        instance_path = "null"
+
+        for path in paths:
+            if instance_name in path:
+                instance_path = path
+
+        if(instance_path == "null"):
+            print("Error trying to get the path for the file " + instance_name + " during VND search")
+
+        vnd_command = "./Vnd_Benchmark " + instance_path + " " + instance_name + " temp_label.txt"
+
+        if ("VndCalculations_" + instance_name + ".csv") not in os.listdir("./VndCalculations"):
+            if (os.system(vnd_command) != 0):
+                print("Error trying to test " + instance_name + " during VND search")
+                quit()
+            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/VndCalculations"
+            dest = "/home/hyydra/Desktop/VndCalculations"
+            securityCopy(src,dest)
+        else:
+            print("VND benchmark for file: " + instance_name + " already exists!")
+
+
+def benchGvns():
+
+    gvns_command = "g++ -g -std=c++11 -o Gvns_Benchmark gvnsBenchmark.cpp ../AntiBandwidth/catch.hpp ../GraphGenerator/GraphGenerator.cpp"
+    gvns_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../VNS/VNS/vns.cpp ../MatrixGenerator/Matrix_generator.cpp ../NeighborhoodStructs/neighborhood.cpp"
+
+    if (os.system(gvns_command) != 0):
+        print("Error trying to compile TABU benchmark")
+        quit()
+
+    for filename in os.listdir("./GraspCalculations"):
+        # print(filename)
+
+        df = pd.read_csv('./GraspCalculations/'+filename)
+        max_label = df.loc[(df['value'] == df['value'].max())]['labeling'].unique()
+        max_label = max_label[0].split(" ")
+
+        file = open("temp_label.txt","w+")
+        for i in range(len(max_label ) - 2):
+            file.write(max_label[i + 1] + "\n")
+        file.close()
+
+        instance_name_regex = re.compile("_(\w+)\.csv")
+        instance_name = instance_name_regex.search(filename)
+        instance_name = instance_name.group(1)
+
+        instance_path = "null"
+
+        for path in paths:
+            if instance_name in path:
+                instance_path = path
+
+        if(instance_path == "null"):
+            print("Error trying to get the path for the file " + instance_name + " during GVNS search")
+
+        gvns_command = "./Gvns_Benchmark " + instance_path + " " + instance_name + " temp_label.txt"
+
+        if ("GvnsCalculations_" + instance_name + ".csv") not in os.listdir("./GvnsCalculations"):
+            if (os.system(gvns_command) != 0):
+                print("Error trying to test " + instance_name + " during GVNS search")
+                quit()
+            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/GvnsCalculations"
+            dest = "/home/hyydra/Desktop/GvnsCalculations"
+            securityCopy(src,dest)
+        else:
+            print("GVNS benchmark for file: " + instance_name + " already exists!")
+
+
+def benchMultiStart():
+
+    multiStart_command = "g++ -g -std=c++11 -o MultiStart_Benchmark multiStartBenchmark.cpp ../AntiBandwidth/catch.hpp ../GraphGenerator/GraphGenerator.cpp"
+    multiStart_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../MultiStart/MultiStart.cpp ../MatrixGenerator/Matrix_generator.cpp ../NeighborhoodStructs/neighborhood.cpp"
+
+    if (os.system(multiStart_command) != 0):
+        print("Error trying to compile TABU benchmark")
+        quit()
+
+    for filename in os.listdir("./GraspCalculations"):
+        # print(filename)
+
+        df = pd.read_csv('./GraspCalculations/'+filename)
+        max_label = df.loc[(df['value'] == df['value'].max())]['labeling'].unique()
+        max_label = max_label[0].split(" ")
+
+        file = open("temp_label.txt","w+")
+        for i in range(len(max_label ) - 2):
+            file.write(max_label[i + 1] + "\n")
+        file.close()
+
+        instance_name_regex = re.compile("_(\w+)\.csv")
+        instance_name = instance_name_regex.search(filename)
+        instance_name = instance_name.group(1)
+
+        instance_path = "null"
+
+        for path in paths:
+            if instance_name in path:
+                instance_path = path
+
+        if(instance_path == "null"):
+            print("Error trying to get the path for the file " + instance_name + " during MULTISTART search")
+
+        multiStart_command = "./MultiStart_Benchmark " + instance_path + " " + instance_name
+
+        if ("multiStartCalculations_" + instance_name + ".csv") not in os.listdir("./MultiStartCalculations"):
+            if (os.system(multiStart_command) != 0):
+                print("Error trying to test " + instance_name + " during MULTISTART search")
+                quit()
+            src = "/home/hyydra/Documents/UNIVERSITY/DYADA/max-bandwidth/Maximum-Bandwidth/BenchMark/MultiStartCalculations"
+            dest = "/home/hyydra/Desktop/MultiStartCalculations"
+            securityCopy(src,dest)
+        else:
+            print("MULTISTART benchmark for file: " + instance_name + " already exists!")
+
+benchGrasp()
+print("BENCHING GRASP")
 benchTabu()
+print("BENCHING TABU")
+benchMultiStart()
+print("BENCHING MULTISTART")
+benchVnd()
+print("BENCHING VND")
+benchGvns()
+print("BENCHINIG GVNS")
