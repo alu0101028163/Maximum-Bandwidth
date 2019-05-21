@@ -21,8 +21,8 @@ namespace TabuSearch{
 
       while((iteration < maxIterations) && (bestValue < objectiveValue)){
 
-      // MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
-      // std::cout << "\n";
+      MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
+      std::cout << "\n";
       // -------------------------------------------------------------------------
       //                            LOCAL SEARCH
       // -------------------------------------------------------------------------

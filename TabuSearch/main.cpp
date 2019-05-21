@@ -3,7 +3,7 @@
 
 int main(){
 
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/ibm32.mtx.rnd");
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
   std::vector<int> solutionElements;
 
   for(int i = 1; i <= graph.size(); i++){

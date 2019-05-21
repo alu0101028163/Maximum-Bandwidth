@@ -7,7 +7,7 @@
 
 int main(){
 
-  const int N_REPETITIONS = 100;
+  const int N_REPETITIONS = 10;
 
   std::ofstream graspCalculations;
   std::string fichName = std::string("graspCalculations.csv");
@@ -15,14 +15,14 @@ int main(){
   graspCalculations << "alpha,n_iterations,n_reps,labeling,value\n";
 
   float percentage = 0.05;
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("..Literature_Instances/Hardwell-Boeing Graphs/bcspwr01.mtx.rnd");
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../Literature_Instances/hb/bcspwr01.mtx.rnd");
   std::vector<int> solutionElements;
 
   for(int i = 1; i <= graph.size(); i++){
     solutionElements.push_back(i);
   }
 
-  static const int arr[] = {100, 500, 1000};
+  static const int arr[] = {10,50,100};
   std::vector<int> iterations(arr, arr + sizeof(arr) / sizeof(arr[0]) );
 
   while(percentage < 1){

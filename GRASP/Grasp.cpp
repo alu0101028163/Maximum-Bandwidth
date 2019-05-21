@@ -7,6 +7,7 @@ namespace Grasp{
 
   float PERCENTAGE = 0.5;
 
+  /* HAY QUE IMPLEMENTAR ANSIOSA*/
   std::vector<int> grasp(std::vector< std::vector<short int> >& graph, int maxIterations, int objectiveValue){
     srand((int)time(0));
 
@@ -23,10 +24,15 @@ namespace Grasp{
 
 
     int i = 0;
+    // En lugar de hacer un maximo de iteraciones predeterminado, puedes hacer un maximo
+    // de iteraciones sin mejorar.
     while((i < maxIterations) && (currentValue < objectiveValue)){
       currentSolution = constructGreedyRandomizedSolution(graph, currentSolution);
       localSearch(currentSolution, graph);
       updateSolution(bestSolutionValue, bestSolution, currentSolution, graph);
+      // IF SOLUCION ES MEJOR
+      // IF BUSQUEDA ANSIOSA
+      // BREAK;
       i++;
     }
 
@@ -35,6 +41,7 @@ namespace Grasp{
   }
 
 
+  // AQUI PODRIAS PASAR UN BOOLEANO TRUE SI MEJORA.
   void updateSolution(int& bestSolutionValue, std::vector<int>& bestSolution, std::vector<int>& currentSolution, std::vector< std::vector<short int> >& graph){
       int currentValue = AntiBandwidth::objectiveFunction(graph,currentSolution);
       if(currentValue  > bestSolutionValue){
@@ -96,11 +103,7 @@ namespace Grasp{
 
   }
 
-  /*
-    TODO: The statement if(remainingLabels.size() <= 0) break; is saving the program
-    of a segmentation fault, but i think it shouldn't be necessary because of the (!isVisited(j, labeling) condition.
-    Track the problem down.
-   */
+
   void constructSolution(int actualNode, std::vector< std::vector<short int> >& graph, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
       // std::cout << "ACTUAL NODE: " << actualNode << "\n";
@@ -110,14 +113,14 @@ namespace Grasp{
          for(int j = 0; j < graph.size(); j++){
            if((graph[i][j] == 1) && (!isVisited(j, labeling))){
               // std::cout << "ACTUAL j: " << j << "\n";
-               labeling[j] = calculateLabel(i,remainingLabels,labeling);
+               labeling[j] = calculateLabel(i,remainingLabels,labeling); //TODO: Cambiar nombre por calculateLabelElement
                constructSolution(j,graph,remainingLabels,labeling);
            }
          }
        }
   }
 
-
+  //TODO: calculateLabelElement
   int calculateLabel(int parentNode, std::list<int>& remainingLabels, std::vector<int>& labeling){
 
     std::vector<int> candidateList = calculateCandidateList(parentNode, remainingLabels, labeling);
