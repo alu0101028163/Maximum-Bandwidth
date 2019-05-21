@@ -79,3 +79,15 @@ def benchTabu():
             quit()
 
 benchTabu()
+# tabu_command = "g++ -g -std=c++11 -o Tabu_Benchmark tabuBenchmark.cpp ../AntiBandwidth/catch.hpp ../GraphGenerator/GraphGenerator.cpp"
+# tabu_command += " ../GRASP/Grasp.cpp ../AntiBandwidth/AntiBandwidth.cpp ../TabuSearch/TabuSearch.cpp"
+#
+# if (os.system(tabu_command) != 0):
+#     print("Error trying to test " + instance_name + " during TABU search")
+#     quit()
+#
+# tabu_command = "./Tabu_Benchmark ../Literature_Instances/hb/ash85.mtx.rnd ash85 ./temp_label.txt"
+#
+# if (os.system(tabu_command) != 0):
+#     print("Error trying to test " + instance_name + " during TABU search")
+#     quit()

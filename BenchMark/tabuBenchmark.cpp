@@ -18,7 +18,12 @@ int main(int argc, char *argv[]){
   std::string graspLabel = std::string(argv[3]);
 
 
-  std::vector<int> label = GraphGen::readLabel("/home/aalvarez/Documents/UNIVERSITY/DYADA/maxbandwidth/BenchMark/temp_label_bcspwr01.txt");
+  // std::cout << "instancePath " << instancePath << "\n";
+  // std::cout << "instanceName " << instanceName << "\n";
+  // std::cout << "graspLabel " << graspLabel;
+
+
+  std::vector<int> label = GraphGen::readLabel(graspLabel);
   for(int i = 0; i < label.size(); i++)
      std::cout << label[i] << " ";
   std::cout << "\n";
