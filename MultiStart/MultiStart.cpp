@@ -124,14 +124,14 @@ void MultiStart::calculateNeighborhood(int structureNum, std::vector<int>& curre
     return;
 }
 
-//repetitions -> lleva a cabo el número de repeticiones del calculateNeighborhood.
 std::vector<int> MultiStart::multiStart(int structure, std::vector<std::vector<short int>>& adjMatrix, int repetitions) {
 
-    std::vector<int> currentSolution = randomVector(adjMatrix.size()); // Vector con la solución inicial.
+    std::vector<int> currentSolution = randomVector(adjMatrix.size());  //Contains first random solution.
     int bestOF = AntiBandwidth::objectiveFunction(adjMatrix, currentSolution);
     int neighborhoodOF = 0;
 
-    std::vector<int> bestSolution(currentSolution.size()); // Vector que se pasa a las distintas estructuras de entorno.
+      // Vector that is passed to the different neighborhood structures.
+      std::vector<int> bestSolution(currentSolution.size());
     bestSolution = currentSolution;
 
     for(int i = 0; i < repetitions; ++i){
@@ -143,10 +143,6 @@ std::vector<int> MultiStart::multiStart(int structure, std::vector<std::vector<s
         }
         currentSolution = randomVector(adjMatrix.size());
     }
-    // std::cout << "BestsolutionOF " << AntiBandwidth::objectiveFunction(adjMatrix, bestSolution) << "\n";
-    // for ( int j = 0; j < bestSolution.size() ; ++j ) {
-    //     std::cout << bestSolution[j] << " ";
-    // }
 
     return bestSolution;
 }
