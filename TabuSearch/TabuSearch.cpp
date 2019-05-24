@@ -130,12 +130,12 @@ namespace TabuSearch{
     iteration += 1;
   }
 
-  std::cout << "BEST SOLUTION IS: ";
-  for(int i = 0; i < bestSolution.size(); i++)
-      std::cout << bestSolution[i] << " ";
-  std::cout << "\n";
-  std::cout << "BEST VALUE IS: " << bestValue << "\n";
-  std::cout << "Nº ITERATIONS IS: " << iteration << "\n";
+  // std::cout << "BEST SOLUTION IS: ";
+  // for(int i = 0; i < bestSolution.size(); i++)
+  //     std::cout << bestSolution[i] << " ";
+  // std::cout << "\n";
+  // std::cout << "BEST VALUE IS: " << bestValue << "\n";
+  // std::cout << "Nº ITERATIONS IS: " << iteration << "\n";
 
   return bestSolution;
 
