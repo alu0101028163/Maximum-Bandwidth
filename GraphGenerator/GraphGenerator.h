@@ -55,7 +55,23 @@ namespace GraphGen {
 	 * @param fileName
 	 */
 	std::vector<std::vector<short int> > denseFileToGraph(std::string fileName);
+	
+	/**
+		Aux method for labelling reading from file 
+		@param fileName
+	*/
 	std::vector<int> readLabel(const std::string& fileName);
+	
+	/**
+		Reads a file containing a sparse matrix and converts it into a vector
+		@param fileName
+	*/
 	std::vector<std::vector<short int> > disperseFileToGraph(const std::string& fileName);
+	
+	/**
+		Reads a file containing a sparse matrix and converts it into a vector
+		@param ignorefirst boolean allows first line ignoring
+		@param fileName
+	*/
 	std::vector<std::vector<short int> > disperseFileToGraph(bool ignorefirst, const std::string& fileName);
 }

@@ -33,16 +33,42 @@ namespace VNS {
 	//										  STANDALONE VND
 	// -------------------------------------------------------------------------------------------------
 
+	/**
+		Implementation of VND standalone procedure with fixed neighborhood structs (simple, double, cyclic exchange)
+		@param adjMatrix is the non-directed graph defining structure, an adjacency matrix
+		
+		@return best labeling obtained from iterating through VND local searchs on GRASP-generated labels
+	*/
 	AntiBandwidth::solutionT VND(const std::vector<std::vector<short int> >& adjMatrix);
 
+	/**
+		Implementation of VND standalone procedure with fixed neighborhood structs (simple, double, cyclic exchange)
+		@param adjMatrix is the non-directed graph defining structure, an adjacency matrix
+		@param init_sol is the initial "best value" computed by GRASP
+
+		@return best labeling obtained from iterating through VND local searchs on GRASP-generated labels
+	*/
 	AntiBandwidth::solutionT VND(const std::vector<std::vector<short int> >& adjMatrix, const AntiBandwidth::solutionT& init_sol);
 
 	// -------------------------------------------------------------------------------------------------
 	//										GVNS IMPLEMENTATION
 	// -------------------------------------------------------------------------------------------------
 
+	/**
+		Implementation of GVNS with random shake procedure based on fixed neighborhood structures
+		(simple, double, quintuple, cyclic exchange)
+		@param adjMatrix
+		@param rd is the random component of neighbor obtention
+	*/
 	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix, std::random_device& rd);
 
+	/**
+		Implementation of GVNS with random shake procedure based on fixed neighborhood structures
+		(simple, double, quintuple, cyclic exchange)
+		@param adjMatrix
+		@param init_sol is the starting "best value", computed with GRASP
+		@param rd is the random component of neighbor obtention
+	*/
 	AntiBandwidth::solutionT GVNS(const std::vector<std::vector<short int> >& adjMatrix, const AntiBandwidth::solutionT& init_sol,
 		std::random_device& rd);
 
@@ -50,7 +76,15 @@ namespace VNS {
 	//										 AUXILIAR METHODS
 	// -------------------------------------------------------------------------------------------------
 
+	/**
+		Prints a certain labelling passed by parameter
+		@param sol is said labelling
+	*/
 	void traceSolution(const AntiBandwidth::solutionT& sol, const std::vector<std::vector<short int> >&);
 
+	/**
+		Sets a static variable utilized in VNS algorithm
+		@param iter is the new number of maximum iterations without improvement
+	*/
 	void setMaxNIIterations(int iter);
 }
