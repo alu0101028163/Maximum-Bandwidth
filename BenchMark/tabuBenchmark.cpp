@@ -26,13 +26,13 @@ int main(int argc, char *argv[]){
   //    std::cout << label[i] << " ";
   // std::cout << "\n";
   // std::cout << "SIZE: " << label.size() << "\n";
-  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph("../" + instancePath);
+  std::vector<std::vector<short int > > graph = GraphGen::disperseFileToGraph(instancePath);
 
 
   std::ofstream graspCalculations;
   std::string fichName = std::string("./TabuCalculations/tabuCalculations_" + instanceName + ".csv");
   graspCalculations.open(fichName);
-  graspCalculations << "n_iter, tabu_coef, diver_coef, inten_coef, label, value, time_in_milliseconds\n";
+  graspCalculations << "n_local_search, tabu_coef, diver_coef, inten_coef, label, value, time_in_milliseconds\n";
 
 
   const int nIteraciones = 100;

@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
     }
 
 
-    const int N_REPETITIONS = 100;
+    const int N_REPETITIONS = 10;
 
     std::string instancePath = std::string(argv[1]);
     std::string instanceName = std::string(argv[2]);

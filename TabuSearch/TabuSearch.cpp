@@ -22,11 +22,6 @@ namespace TabuSearch{
   std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations){
 
 
-      // std::cout << "IN COEFF -> " << intensificationCoefficient << "\n";
-      // std::cout << "DIV COEFF -> " << diversificationCoefficient << "\n";
-      // std::cout << "TABU COEFF -> " << tabuCoefficient << "\n";
-      //
-
       // Evaluating the initial solution we get the best objective function value for our problem.
       int bestValue = AntiBandwidth::objectiveFunction(graph,initialSolution);
 
@@ -47,10 +42,9 @@ namespace TabuSearch{
       int intensificationCounter = 0;
 
 
-      while(iteration < maxIterations){
+      while(true){
 
-      // MatrixGenerator::print_matrix(recencyFrequencyMatrix, recencyFrequencyMatrix.size(), recencyFrequencyMatrix.size());
-      // std::cout << "\n";
+
       // -------------------------------------------------------------------------
       //                            LOCAL SEARCH
       // -------------------------------------------------------------------------
@@ -171,6 +165,7 @@ namespace TabuSearch{
     if(currentValue > bestValue){
        bestValue = currentValue;
        bestSolution = currentSolution;
+       std::cout << "CURRENT BEST VALUE IS: " << bestValue << "\n";
     }
   }
 

@@ -1,14 +1,14 @@
 #include "../GraphGenerator/GraphGenerator.h"
-#include "DeterministAlgorithm.h"
-#include "../Antibandwidth/AntiBandwidth.h"
+#include "BruteForce.h"
+#include "../AntiBandwidth/AntiBandwidth.h"
 #include <iostream>
 
 int main(){
 
   // std::vector< std::vector<short int> > graph = GraphGen::disperseFileToGraph("../Literature_Instances/caterpillars/caterpillars/caterpillar_5_4.txt");
   std::vector< std::vector<short int> > graph = GraphGen::denseFileToGraph("./inst1.txt");
-  std::vector <std::vector<int> > labels = DeterministAlgorithm::generateLabels(graph.size());
-  std::vector <int> solution = DeterministAlgorithm::deterministAlgorithm(graph, labels);
+  std::vector <std::vector<int> > labels = BruteForce::generateLabels(graph.size());
+  std::vector <int> solution = BruteForce::deterministAlgorithm(graph, labels);
 
   for(int i = 0; i < solution.size(); i++){
     std::cout << solution[i] << " ";

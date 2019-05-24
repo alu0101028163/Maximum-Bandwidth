@@ -13,7 +13,7 @@ namespace Grasp{
 
 
     std::vector<int> currentSolution;
-    for(int i = 1; i <= graph.size(); 8++)
+    for(int i = 1; i <= graph.size(); i++)
         currentSolution.push_back(i);
 
 

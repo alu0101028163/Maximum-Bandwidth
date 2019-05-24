@@ -5,7 +5,7 @@
 #include <limits>
 #include "../AntiBandwidth/AntiBandwidth.h"
 
-namespace DeterministAlgorithm{
+namespace BruteForce{
   /**
    * Generate labels formed by all possible permutations from 1 to numberOfVertexs.
    * @param numberOfVertexs

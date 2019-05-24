@@ -6,15 +6,41 @@
 
 namespace TabuSearch{
 
-
+/**
+ * The intensification coefficient is the number of itearations that the algorithm will be using the ratio
+ * between value obtained and frequency after haven't been improving for diversificationCoefficient time.
+ * @param intensificationCoefficient
+ */
   extern int intensificationCoefficient;
+
+/**
+ * The diversification coefficient references the number of iterations that the algorithm can
+ * be without improving the solution.
+ * @param diversificationCoefficient
+ */
   extern int diversificationCoefficient;
+
+/**
+  * The tabu coefficient is the number of iterations a movement will be blocked after being used.
+  * @param tabuCoefficient
+  */
   extern int tabuCoefficient;
 
+
+
   void setTabuCoefficient(int tabuCoef);
+
   void setIntensificationCoefficient(int intensifCoef);
+
   void setDiversificationCoefficient(int diversifCoef);
 
+  /**
+   * The Tabu Search algorithm.
+   * @param  initialSolution
+   * @param  graph
+   * @param  maxIterations
+   * @return
+   */
   std::vector<int> tabuSearch(std::vector<int> initialSolution, std::vector< std::vector<short int> > graph, int maxIterations);
 
   /**

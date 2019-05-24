@@ -4,11 +4,11 @@ import pandas as pd
 import shutil
 
 paths = []
-paths.append("Literature_Instances/hb/ibm32.mtx.rnd") # 32
-paths.append("Literature_Instances/hb/bcspwr01.mtx.rnd") # 39
-paths.append("Literature_Instances/hb/bcspwr02.mtx.rnd") # 49
-paths.append("Literature_Instances/hb/will57.mtx.rnd") # 57
-paths.append("Literature_Instances/hb/ash85.mtx.rnd") # 85
+# paths.append("../Literature_Instances/hb/ibm32.mtx.rnd") # 32 -> BASI
+paths.append("../Literature_Instances/hb/bcspwr01.mtx.rnd") # 39 -> YO
+# paths.append("../Literature_Instances/hb/bcspwr02.mtx.rnd") # 49 -> BASI
+# paths.append("../Literature_Instances/hb/will57.mtx.rnd") # 57 -> YO
+# paths.append("../Literature_Instances/hb/ash85.mtx.rnd") # 85
 
 
 def securityCopy(src,dest):
@@ -83,6 +83,7 @@ def benchTabu():
         if(instance_path == "null"):
             print("Error trying to get the path for the file " + instance_name + " during tabu search")
 
+        print(instance_path)
         tabu_command = "./Tabu_Benchmark " + instance_path + " " + instance_name + " temp_label.txt"
 
         if ("tabuCalculations_" + instance_name + ".csv") not in os.listdir("./TabuCalculations"):

@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include <vector>
 #include "catch.hpp"
-#include "DeterministAlgorithm.h"
+#include "BruteForce.h"
 #include "../GraphGenerator/GraphGenerator.h"
 
 
 TEST_CASE("Label generator is begin correctly performed"){
 
-  std::vector<std::vector<int> > labels = DeterministAlgorithm::generateLabels(3);
+  std::vector<std::vector<int> > labels = BruteForce::generateLabels(3);
   std::vector<std::vector<int> > labels_;
 
   std::vector<int> label1;
@@ -104,8 +104,8 @@ TEST_CASE("Determinist Algorithm is performing correctly"){
   labels2.push_back(label1);
   labels2.push_back(label3);
 
-  REQUIRE(DeterministAlgorithm::deterministAlgorithm(graph, labels1) == label2);
-  REQUIRE(DeterministAlgorithm::deterministAlgorithm(graph, labels2) == label1);
+  REQUIRE(BruteForce::deterministAlgorithm(graph, labels1) == label2);
+  REQUIRE(BruteForce::deterministAlgorithm(graph, labels2) == label1);
 
 
 

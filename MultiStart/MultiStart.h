@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include "Grasp.h"
-#include "GraphGenerator.h"
-#include "AntiBandwidth.h"
+#include "../GRASP/Grasp.h"
+#include "../GraphGenerator/GraphGenerator.h"
+#include "../AntiBandwidth/AntiBandwidth.h"
 
 namespace MultiStart{
 
@@ -20,7 +20,8 @@ namespace MultiStart{
     void cyclicAdjExchange(std::vector<int>& currentSolution,const std::vector<std::vector<short int>>& graph);
 
 
-    std::vector<int> multiStart(int structure, const std::string &filename, int repetitions);
+    std::vector<int> multiStart(int structure, std::vector<std::vector<short int>>& adjMatrix, int repetitions);
+
 }
 
 #endif //CLION_MULTISTART_MULTISTART_H

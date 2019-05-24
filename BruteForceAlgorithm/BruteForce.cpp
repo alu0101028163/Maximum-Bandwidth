@@ -1,6 +1,6 @@
-#include "DeterministAlgorithm.h"
+#include "BruteForce.h"
 
-namespace DeterministAlgorithm{
+namespace BruteForce{
 
   std::vector< std::vector<int> > generateLabels(int numberOfVertexs){
 
